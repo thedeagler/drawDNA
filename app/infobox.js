@@ -30,7 +30,7 @@ function editContent(e) {
   e.preventDefault();
 
   appState.editing = true;
-  editBox.value = appState.tabContent[appState.selectedTab];
+  editBox.value = appState.data[appState.selectedTab];
 
   saveButton.addEventListener('click', saveContent);
   cancelButton.addEventListener('click', cancelEdit);
@@ -48,8 +48,8 @@ function saveContent(e) {
   e.preventDefault();
 
   appState.editing = false;
-  appState.tabContent[appState.selectedTab] = editBox.value;
-  tabContent.innerText = appState.tabContent[appState.selectedTab];
+  appState.data[appState.selectedTab] = editBox.value.toUpperCase();
+  tabContent.innerText = appState.data[appState.selectedTab];
 
   saveButton.removeEventListener('click', saveContent);
   cancelButton.removeEventListener('click', cancelEdit);
@@ -99,7 +99,7 @@ function handleTabClick(e) {
     appState.selectedTab = appState.selectedTabElement.textContent.toLowerCase();
     appState.selectedTabElement.classList.toggle('selected');
     domShow(tabContent);
-    tabContent.innerText = appState.tabContent[e.target.textContent.toLowerCase()];
+    tabContent.innerText = appState.data[e.target.textContent.toLowerCase()];
   }
 
   // Manipulate edit button
