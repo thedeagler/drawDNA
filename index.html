@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>drawDNA</title>
+  <link rel="stylesheet" href=".https://cdnjs.cloudflare.com/ajax/libs/normalize/4.1.1/normalize.min.css">
+  <link rel="stylesheet" href="./style.css">
+  <link href='https://fonts.googleapis.com/css?family=Slabo+27px' rel='stylesheet' type='text/css'>
+  <script defer src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+  <script defer src="./index.js"></script>
+  <script defer src="./infobox.js"></script>
+  <script defer src="./drawDNA.js"></script>
+</head>
+<body>
+  <div id="tabs">
+    <div id="tab_bar"><span class="tab_title">DBN</span><span class="tab_title">Sequence</span></div>
+    <div id="tab_content" class="hidden"></div>
+    <div id="edit" class="button hidden">Edit</div>
+    <form id="edit_form" class="hidden">
+      <textarea id="edit_box" name="edit" id="" cols="30" rows="10"></textarea>
+    </form>
+    <div id="cancel" class="button hidden">Cancel</div>
+    <div id="save" class="button hidden">Save</div>
+    <div id="error"></div>
+  </div>
+  <span id="create_new">+</span>
+  <canvas id="draw_area"></canvas>
+</body>
+</html>
