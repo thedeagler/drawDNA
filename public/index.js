@@ -1,12 +1,16 @@
+/*
+========================================
+    State
+========================================
+ */
 window.appState = {
-  data: {
-    dbn: '(...(((((.(...).)))))........(((((.....((..(.((((((..(((.((...)).)))..)))))).).))))))).............)',
-    sequence: 'TTGGGGGGACTGGGGCTCCCATTCGTTGCCTTTATAAATCCTTGCAAGCCAATTAACAGGTTGGTGAGGGGCTTGGGTGAAAAGGTGCTTAAGACTCCGT',
+  DNA: {
+    dbn: '',
+    sequence: '',
   },
   selectedTab: '',
   selectedTabElement: null,
 }
-
 
 /*
 ========================================
@@ -19,45 +23,97 @@ createButton.addEventListener('click', function(e) {
   console.log('Woah, new thing.');
 })
 
+/*
+========================================
+    Main
+========================================
+ */
+// Get sequence data on page load
+var id = window.location.pathname.split('/')[2];
+makeRequest('GET', 'http://127.0.0.1:3000/data/' + id);
 
 /*
 ========================================
     Helpers
 ========================================
  */
-function getD3Data(dbnString, sequenceString) {
-  var nodes = sequenceString.toUpperCase().split('').map(function(base) { return {base: base}; });
-  var links = [];
+// Update app's DNA state
+function updateDNA(newDNA) {
+  verifyDNA(newDNA);
+  appState.DNA = newDNA;
+}
+
+// Check validity of input sequences
+// Throws specific errors about what's wrong
+// Returns true if valid
+function verifyDNA(DNA) {
+  var dbn = DNA.dbn;
+  var sequence = DNA.sequence;
   var unpaired = [];
+  var basePairs = {A: 'T', T: 'A', C: 'G', G: 'C' };
+  var errMap = {};
 
-  dbnString.split('').forEach(function(db, i) {
+  var nodes = sequence.toUpperCase().split('').map(function(base) {
+    if(!basePairs.hasOwnProperty(base) && !errMap[1]) errMap[1] = 'Unexpected value in sequence.';
+    return {base: base};
+  });
 
-    // if(i === 0) return;
-
+  if(dbn.length !== sequence.length && !errMap[3]) errMap[3] = "Sequence and dot-bracket notation mismatch.";
+  dbn.split('').forEach(function(db, i) {
     switch(db) {
+      case '.':
+        break;
       case '(':
         unpaired.push(i);
         break;
       case ')':
-        links.push(new Link(unpaired.pop(), i));
+        var pair = unpaired.pop();
+        if(basePairs[nodes[i]] !== basePairs[nodes[pair]]  && !errMap[2]) errMap[2] = 'Mismatched pair.';
         break;
-      default :
-        break;
-    }
-
-    if(i < nodes.length - 1) {
-      links.push(new Link(i, i+1));
-    }
+      default:
+        if(!errMap[0]) errMap[0] = 'Unexpected value in dot-bracket notation.';
+    };
   });
+  if(unpaired.length  && !errMap[4]) errMap[4] = 'Unpaired bases remaining.';
 
-  return {
-    nodes: nodes,
-    links: links
+  var errors = [];
+  for(error in errMap) {
+    errors.push(errMap[error]);
   }
 
-  function Link(source, target) {
-    this.source = source;
-    this.target = target;
+  if(errors.length) {
+    throw new DNAError(errors);
+  } else {
+    return true;
+  }
+}
+
+// Make Ajax requests
+var httpRequest;
+function makeRequest(type, url, data) {
+  httpRequest = new XMLHttpRequest();
+
+  if (!httpRequest) {
+    alert('Giving up :( Cannot create an XMLHTTP instance');
+    return false;
+  }
+  httpRequest.onreadystatechange = handleResponse;
+  httpRequest.open(type, url);
+  httpRequest.send(data);
+}
+
+function handleResponse() {
+  if (httpRequest.readyState === XMLHttpRequest.DONE) {
+    if (httpRequest.status === 200) {
+      var response = JSON.parse(httpRequest.responseText);
+
+      appState.DNA.dbn = response.dbn;
+      appState.DNA.sequence = response.baseChain;
+
+      drawDNA(appState.DNA);
+    } else {
+      console.log('There was a problem with the request.');
+    }
   }
 }
 
