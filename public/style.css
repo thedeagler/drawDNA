@@ -139,11 +139,10 @@ body {
   position: absolute;
   top: 0;
   left: 0;
-  width: 25%;
   background-color: #41BAFF;
 }
 
-#options_container {
+.options_container {
   background-color: white;
   border-top: 1px solid lightgrey;
   border-left: 1px solid lightgrey;
@@ -177,6 +176,10 @@ body {
   margin: 0 10px;
 }
 
+.mi_label {
+  margin-right: 20px;
+}
+
 .color_input {
   height: 28px;
   width: 25px;
@@ -186,16 +189,43 @@ body {
   background-color: white;
 }
 
-#settings_icon {
-  height: 50px;
-  width: 50px;
+.settings_icon {
+  float: right;
+}
+
+/*
+========================================
+    Legend
+========================================
+ */
+#legend_container {
   position: absolute;
   top: 0;
   left: 0;
+  background-color: #41BAFF;
 }
 
-#settings_close {
-  float: right;
+.color_bubble {
+  height: 26px;
+  width: 26px;
+  border-radius: 13px;
+  background-color: #41BAFF;
+}
+
+#a_output {
+  background-color: #FF8723;
+}
+
+#t_output {
+  background-color: #FFC944;
+}
+
+#c_output {
+  background-color: #10A8FF;
+}
+
+#g_output {
+  background-color: #00FF81;
 }
 
 /*

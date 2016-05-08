@@ -15,32 +15,52 @@
   <script defer src="../drawDNA.js"></script>
 </head>
 <body>
-  <img id="settings_icon" src="../resources/settings.svg"></img>
-  <div id="settings_container" class="paper hidden">
-    <h3 class="title">Settings<img id="settings_close" src="../resources/close.svg"></img></h3>
-    <div id="options_container">
+  <div id="legend_container" class="paper">
+    <h3 id="legend_title"class="title">Legend<img id="settings_open" class="settings_icon" src="../resources/settings.svg"></img></h3>
+    <div class="options_container">
       <div class="mi">
-        <label for="a_color">Adenine</label>
+        <span class="mi_label">Adenine</span>
+        <div id="a_output" class="color_bubble"></div>
+      </div>
+      <div class="mi">
+        <span class="mi_label">Thymine</span>
+        <div id="t_output" class="color_bubble"></div>
+      </div>
+      <div class="mi">
+        <span class="mi_label">Cytosine</span>
+        <div id="c_output" class="color_bubble"></div>
+      </div>
+      <div class="mi">
+        <span class="mi_label">Guanine</span>
+        <div id="g_output" class="color_bubble"></div>
+      </div>
+    </div>
+  </div>
+  <div id="settings_container" class="paper hidden">
+    <h3 id="settings_title"class="title">Settings<img id="settings_close" class="settings_icon" src="../resources/close.svg"></img></h3>
+    <div class="options_container">
+      <div class="mi">
+        <label class="mi_label" for="a_color">Adenine</label>
         <input id="a_color" class="color_input" type="color" value="#FF8723">
       </div>
       <div class="mi">
-        <label for="a_color">Thymine</label>
+        <label class="mi_label" for="a_color">Thymine</label>
         <input id="t_color" class="color_input" type="color" value="#FFC944">
       </div>
       <div class="mi">
-        <label for="a_color">Cytosine</label>
+        <label class="mi_label" for="a_color">Cytosine</label>
         <input id="c_color" class="color_input" type="color" value="#10A8FF">
       </div>
       <div class="mi">
-        <label for="a_color">Guanine</label>
+        <label class="mi_label" for="a_color">Guanine</label>
         <input id="g_color" class="color_input" type="color" value="#00FF81">
       </div>
       <div class="mi">
-        <label for="length">Distance</label>
+        <label class="mi_label" for="length">Distance</label>
         <input id="length_slider" class="mi_input" type="range" min="0" max="250" value="10" step="1">
       </div>
       <div class="mi">
-        <label for="radius">Radius</label>
+        <label class="mi_label" for="radius">Radius</label>
         <input id="radius_slider" class="mi_input" type="range" min="0" max="50" value="10" step="1">
       </div>
     </div>
@@ -63,7 +83,7 @@
     <div id="cancel" class="button hidden">Cancel</div>
     <div id="save" class="button hidden">Save</div>
   </div>
-  <img id="add_icon" class="paper" src="../resources/add_circle.svg"></img>
+  <a href="../new"><img id="add_icon" class="paper" src="../resources/add_circle.svg"></img></a>
   <svg id="canvas"></svg>
 </body>
 </html>
