@@ -50,41 +50,56 @@ function verifyDNA(DNA) {
   var dbn = DNA.dbn;
   var sequence = DNA.sequence;
   var unpaired = [];
-  var basePairs = {A: 'T', T: 'A', C: 'G', G: 'C' };
   var errMap = {};
 
-  var nodes = sequence.toUpperCase().split('').map(function(base) {
-    if(!basePairs.hasOwnProperty(base) && !errMap[1]) errMap[1] = 'Unexpected value in sequence.';
+  var basePairs = {A: 'T', T: 'A', C: 'G', G: 'C' };
+  var errCodes = {
+    0: 'Unexpected value in dot-bracket notation.',
+    1: 'Unexpected value in sequence.',
+    2: 'Mismatched base pair.',
+    3: 'Sequence/dot-bracket notation mismatch.',
+    4: 'Unpaired bases.',
+    5: 'Illegal dot-bracket notation.'
+  }
+
+  var bases = sequence.toUpperCase().split('').map(function(base) {
+    if(!basePairs.hasOwnProperty(base)) generateError(1);
     return {base: base};
   });
 
-  if(dbn.length !== sequence.length && !errMap[3]) errMap[3] = "Sequence and dot-bracket notation mismatch.";
-  dbn.split('').forEach(function(db, i) {
-    switch(db) {
+  if(dbn.length !== sequence.length) generateError(3);
+  dbn.split('').forEach(function(char, i) {
+    switch(char) {
       case '.':
         break;
       case '(':
         unpaired.push(i);
         break;
       case ')':
-        var pair = unpaired.pop();
-        if(basePairs[nodes[i].base] !== nodes[pair].base && !errMap[2]) errMap[2] = 'Mismatched base pair.';
+        var pairIndex = unpaired.pop();
+
+        if(pairIndex === undefined || !bases[i] || !bases[pairIndex]) {
+          generateError(5);
+        } else {
+          if(basePairs[bases[i].base] !== bases[pairIndex].base) {
+            generateError(2);
+          }
+        }
         break;
       default:
-        if(!errMap[0]) errMap[0] = 'Unexpected value in dot-bracket notation.';
+        generateError(0);
     };
   });
-  if(unpaired.length  && !errMap[4]) errMap[4] = 'Unpaired bases remaining.';
+  if(unpaired.length) generateError(4);
 
-  var errors = [];
-  for(error in errMap) {
-    errors.push(errMap[error]);
-  }
-
-  if(errors.length) {
-    throw new DNAError(errors);
+  if(Object.keys(errMap).length) {
+    throw new DNAError(errMap);
   } else {
     return true;
+  }
+
+  function generateError(code) {
+    if(!errMap[code]) errMap[code] = errCodes[code];
   }
 }
 

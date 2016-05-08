@@ -110,10 +110,12 @@ function toggleEditing(editing) {
 
 function handleParsingError(e) {
   if (e instanceof DNAError) {
-    var message = e.messages.reduce(function(memo, val) {
-      return memo + '-' + val + '\n';
+    var errorCodes = e.errors;
+    var messages = Object.keys(errorCodes).reduce(function(memo, code) {
+      var message = errorCodes[code];
+      return memo + '-' + message + '\n';
     }, "")
-    errorMessage.innerText = message;
+    errorMessage.innerText = messages;
     domShow(errorContainer);
   } else {
     console.error(e);
