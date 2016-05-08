@@ -16,7 +16,7 @@
 </head>
 <body>
   <div id="legend_container" class="paper">
-    <h3 id="legend_title"class="title">Legend<img id="settings_open" class="settings_icon" src="../resources/settings.svg"></img></h3>
+    <h3 id="legend_title" class="title">Legend<img id="settings_open" class="settings_icon clickable" src="../resources/settings.svg"></img></h3>
     <div class="options_container">
       <div class="mi">
         <span class="mi_label">Adenine</span>
@@ -37,21 +37,21 @@
     </div>
   </div>
   <div id="settings_container" class="paper hidden">
-    <h3 id="settings_title"class="title">Settings<img id="settings_close" class="settings_icon" src="../resources/close.svg"></img></h3>
+    <h3 id="settings_title"class="title">Settings<img id="settings_close" class="settings_icon clickable" src="../resources/close.svg"></img></h3>
     <div class="options_container">
-      <div class="mi">
+      <div class="mi clickable">
         <label class="mi_label" for="a_color">Adenine</label>
         <input id="a_color" class="color_input" type="color" value="#FF8723">
       </div>
-      <div class="mi">
+      <div class="mi clickable">
         <label class="mi_label" for="a_color">Thymine</label>
         <input id="t_color" class="color_input" type="color" value="#FFC944">
       </div>
-      <div class="mi">
+      <div class="mi clickable">
         <label class="mi_label" for="a_color">Cytosine</label>
         <input id="c_color" class="color_input" type="color" value="#10A8FF">
       </div>
-      <div class="mi">
+      <div class="mi clickable">
         <label class="mi_label" for="a_color">Guanine</label>
         <input id="g_color" class="color_input" type="color" value="#00FF81">
       </div>
@@ -66,14 +66,14 @@
     </div>
   </div>
   <div id="tabs" class="paper" >
-    <div id="editing" class='hidden'><span>Editing</span></div>
     <div id="tab_bar">
-        <span class="tab_title title">Sequence</span><span class="tab_title title">DBN</span>
+        <span class="tab_title title clickable">Sequence</span><span class="tab_title title clickable">DBN</span>
     </div>
     <div id="tab_content" class="hidden"></div>
     <form id="edit_form" class="hidden">
       <textarea class="edit_box" id="edit_seq" name="edit" cols="30" rows="10"></textarea>
       <textarea class="edit_box" id="edit_dbn" name="edit" cols="30" rows="10"></textarea>
+      <div id="editing"><span>Editing</span></div>
     </form>
     <div id="error_container" class="hidden">
       <span>Errors:</span>
@@ -83,7 +83,7 @@
     <div id="cancel" class="button hidden">Cancel</div>
     <div id="save" class="button hidden">Save</div>
   </div>
-  <a href="../new"><img id="add_icon" class="paper" src="../resources/add_circle.svg"></img></a>
+  <a href="../new"><img id="add_icon" src="../resources/add_circle.svg"></img></a>
   <svg id="canvas"></svg>
 </body>
 </html>

@@ -46,12 +46,12 @@ function drawDNA(DNA) {
   nodes.append('circle')
     .attr('class', function(d, i) {
       switch(d.base.toUpperCase()) {
-        case 'A': return 'node adenine';
-        case 'T': return 'node thymine';
-        case 'C': return 'node cytosine';
-        case 'G': return 'node guanine';
-        case "5'": return 'node head';
-        case "3'": return 'node tail';
+        case 'A': return 'clickable node adenine';
+        case 'T': return 'clickable node thymine';
+        case 'C': return 'clickable node cytosine';
+        case 'G': return 'clickable node guanine';
+        case "5'": return 'clickable node head';
+        case "3'": return 'clickable node tail';
       }
     })
     .attr('r', function(d) {return d.r = radius; })

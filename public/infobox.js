@@ -5,7 +5,6 @@ var tabContent = document.getElementById('tab_content');
 var editButton = document.getElementById('edit');
 var saveButton = document.getElementById('save');
 var cancelButton = document.getElementById('cancel');
-var editNotify = document.getElementById('editing');
 var editForm = document.getElementById('edit_form');
 var dbnEditBox = document.getElementById('edit_dbn');
 var seqEditBox = document.getElementById('edit_seq');
@@ -82,7 +81,6 @@ function toggleEditing(editing) {
     saveButton.addEventListener('click', saveContent);
     cancelButton.addEventListener('click', cancelEdit);
 
-    domShow(editNotify);
     domShow(editForm);
     domShow(saveButton);
     domShow(cancelButton);
@@ -101,7 +99,6 @@ function toggleEditing(editing) {
     domShow(tabContent);
     domShow(editButton);
 
-    domHide(editNotify);
     domHide(editForm);
     domHide(saveButton);
     domHide(cancelButton);
