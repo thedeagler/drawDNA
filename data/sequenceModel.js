@@ -3,11 +3,11 @@ var mongoose = require('mongoose');
 var sequence = new mongoose.Schema({
   dbn: {
     type: String,
-    default: '(...(((((.(...).)))))........(((((.....((..(.((((((..(((.((...)).)))..)))))).).))))))).............)'
+    default: '..(((((..(((...)))..)))))...'
   },
   sequence: {
     type: String,
-    default: 'TTGGGGGGACTGGGGCTCCCATTCGTTGCCTTTATAAATCCTTGCAAGCCAATTAACAGGTTGGTGAGGGGCTTGGGTGAAAAGGTGCTTAAGACTCCGT'
+    default: 'TTGGAGTACACAACCTGTACACTCCTTC'
   }
 });
 

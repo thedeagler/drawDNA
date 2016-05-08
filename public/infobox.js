@@ -46,10 +46,12 @@ function saveContent(e) {
   e.stopPropagation();
   e.preventDefault();
 
-  if(dbnEditBox.value !== appState.DNA.dbn
-  || seqEditBox.value.toUpperCase() !== appState.DNA.sequence) {
-    appState.DNA.dbn = dbnEditBox.value;
-    appState.DNA.sequence = seqEditBox.value.toUpperCase();
+  var newDBN = dbnEditBox.value.replace(/\s+/g, "");
+  var newSeq = seqEditBox.value.toUpperCase().replace(/\s+/g, "");
+
+  if(newDBN !== appState.DNA.dbn || newSeq !== appState.DNA.sequence) {
+    appState.DNA.dbn = newDBN;
+    appState.DNA.sequence = newSeq;
 
     try{
       verifyDNA(appState.DNA);
