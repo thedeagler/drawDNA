@@ -18,11 +18,31 @@
   <img id="settings_icon" src="../resources/settings.svg"></img>
   <div id="settings_container" class="paper hidden">
     <h3 class="title">Settings<img id="settings_close" src="../resources/close.svg"></img></h3>
-    <div id="color_container">
-      <div class='color_picker'><input id="a_color" type="color" value="#FF8723">&nbsp;Adenine</div>
-      <div class='color_picker'><input id="t_color" type="color" value="#FFC944">&nbsp;Thymine</div>
-      <div class='color_picker'><input id="c_color" type="color" value="#10A8FF">&nbsp;Cytosine</div>
-      <div class='color_picker'><input id="g_color" type="color" value="#00FF81">&nbsp;Guanine</div>
+    <div id="options_container">
+      <div class="mi">
+        <label for="a_color">Adenine</label>
+        <input id="a_color" class="color_input" type="color" value="#FF8723">
+      </div>
+      <div class="mi">
+        <label for="a_color">Thymine</label>
+        <input id="t_color" class="color_input" type="color" value="#FFC944">
+      </div>
+      <div class="mi">
+        <label for="a_color">Cytosine</label>
+        <input id="c_color" class="color_input" type="color" value="#10A8FF">
+      </div>
+      <div class="mi">
+        <label for="a_color">Guanine</label>
+        <input id="g_color" class="color_input" type="color" value="#00FF81">
+      </div>
+      <div class="mi">
+        <label for="length">Distance</label>
+        <input id="length_slider" class="mi_input" type="range" min="0" max="250" value="10" step="1">
+      </div>
+      <div class="mi">
+        <label for="radius">Radius</label>
+        <input id="radius_slider" class="mi_input" type="range" min="0" max="50" value="10" step="1">
+      </div>
     </div>
   </div>
   <div id="tabs" class="paper" >

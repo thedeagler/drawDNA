@@ -139,11 +139,11 @@ body {
   position: absolute;
   top: 0;
   left: 0;
-  width: 35%;
+  width: 25%;
   background-color: #41BAFF;
 }
 
-#color_container {
+#options_container {
   background-color: white;
   border-top: 1px solid lightgrey;
   border-left: 1px solid lightgrey;
@@ -151,11 +151,39 @@ body {
   border-bottom: 1px solid lightgrey;
   padding: 5px 0;
   text-align: justify;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flex;
+  display: -o-flex;
+  display: flex;
+  justify-content: space-around;
+  -webkit-flex-direction: column;
+  -moz-flex-direction: column;
+  -ms-flex-direction: column;
+  -o-flex-direction: column;
+  flex-direction: column;
 }
 
-.color_picker {
-  width: 100%;
-  padding: 5px 20px;
+.mi {
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flex;
+  display: -o-flex;
+  display: flex;
+  justify-content: space-between;
+  -ms-align-items: center;
+  align-items: center;
+  height: 30px;
+  margin: 0 10px;
+}
+
+.color_input {
+  height: 28px;
+  width: 25px;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  background-color: white;
 }
 
 #settings_icon {
@@ -179,6 +207,12 @@ body {
   fill: transparent;
   fill-opacity: .6;
   stroke-opacity: .7;
+}
+
+.node:hover {
+  stroke: #C324FF;
+  stroke-width: 3px;
+  stroke-opacity: 1;
 }
 
 text {

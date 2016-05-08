@@ -17,7 +17,7 @@ function drawDNA(DNA) {
 
   var linkDistance = 5;
 
-  var force = d3.layout.force()
+  window.forceLayout = d3.layout.force()
     .size([width, height])
     .nodes(bases)
     .links(links)
@@ -39,7 +39,7 @@ function drawDNA(DNA) {
     .data(bases)
     .enter()
     .append('g')
-    .call(force.drag);
+    .call(forceLayout.drag);
 
   var radius = 10;
   var fontSize = 1.8 * radius;
@@ -54,41 +54,41 @@ function drawDNA(DNA) {
         case "3'": return 'node tail';
       }
     })
-    .attr('r', radius)
+    .attr('r', function(d) {return d.r = radius; })
     .attr('cx', function(d) { return d.x; })
     .attr('cy', function(d) { return d.y; })
     .attr('fill', 'white')
     .on('mouseover', function() {
       d3.select(this)
         .transition()
-        .attr("r", 1.3 * radius)
+        .attr("r", function(d) { return 1.3 * d.r; })
         .duration(50);
       d3.select(this.nextSibling)
         .transition()
-        .attr('dx', 12 + (0.4 * radius))
-        .attr('font-size', 1.3 * fontSize)
+        .attr('dx', function(d) { return 1.3 * d.dx; })
+        .attr('font-size', function(d) { return 1.3 * d.fs; })
         .duration(50);
     })
     .on('mouseout', function(){
       d3.select(this)
         .transition()
-        .attr('r', radius)
+        .attr('r', function(d) { return d.r; })
         .duration(50);
       d3.select(this.nextSibling)
         .transition()
-        .attr('font-size',fontSize)
-        .attr('dx', 12)
+        .attr('font-size',function(d) { return d.fs; })
+        .attr('dx', function(d) { return d.dx; })
         .duration(50);
     });
 
   nodes.append('text')
-    .attr('font-size', fontSize)
-    .attr('dx', 12)
+    .attr('font-size', function(d) { return d.fs = fontSize; })
+    .attr('dx', function(d) { return d.dx = 12; })
     .attr('dy', '.35em')
     .text(function(d) { return d.base });
 
   var timeBetweenFrames = 1;
-  force.on('tick', function() {
+  forceLayout.on('tick', function() {
     nodes.attr('transform', function(d) { return 'translate(' + d.x + ',' + d.y + ')'; });
 
     allLinks.transition().ease('linear').duration(timeBetweenFrames)
@@ -98,7 +98,7 @@ function drawDNA(DNA) {
       .attr('y2', function(d) { return d.target.y; });
   });
 
-  force.start();
+  forceLayout.start();
 }
 
 // Create data for d3 force graph
