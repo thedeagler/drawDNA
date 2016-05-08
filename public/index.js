@@ -30,7 +30,8 @@ createButton.addEventListener('click', function(e) {
  */
 // Get sequence data on page load
 var id = window.location.pathname.split('/')[2];
-makeRequest('GET', 'http://127.0.0.1:3000/data/' + id);
+var origin = window.location.origin;
+makeRequest('GET', origin + '/data/' + id);
 
 /*
 ========================================
