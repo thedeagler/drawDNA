@@ -1,5 +1,5 @@
-function drawDNA(dbn, sequence) {
-  var d3data = getD3Data(dbn, sequence);
+function drawDNA(DNA) {
+  var d3data = getD3Data(DNA);
 
   var width = window.innerWidth,
       height = window.innerHeight;

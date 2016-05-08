@@ -124,7 +124,7 @@ function handleResponse() {
       var response = JSON.parse(httpRequest.responseText);
 
       appState.DNA.dbn = response.dbn;
-      appState.DNA.sequence = response.baseChain;
+      appState.DNA.sequence = response.sequence;
 
       drawDNA(appState.DNA);
     } else {
