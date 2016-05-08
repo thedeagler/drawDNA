@@ -20,18 +20,19 @@
         <span class="tab_title">DBN</span><span class="tab_title">Sequence</span>
     </div>
     <div id="tab_content" class="hidden"></div>
+    <form id="edit_form" class="hidden">
+      <textarea class="edit_box" id="edit_dbn" name="edit" cols="30" rows="10"></textarea>
+      <textarea class="edit_box" id="edit_seq" name="edit" cols="30" rows="10"></textarea>
+    </form>
     <div id="error_container" class="hidden">
       <span>Errors:</span>
       <div id="error_message"></div>
     </div>
     <div id="edit" class="button hidden">Edit</div>
-    <form id="edit_form" class="hidden">
-      <textarea class="edit_box" id="edit_dbn" name="edit" cols="30" rows="10"></textarea>
-      <textarea class="edit_box" id="edit_seq" name="edit" cols="30" rows="10"></textarea>
-    </form>
     <div id="cancel" class="button hidden">Cancel</div>
     <div id="save" class="button hidden">Save</div>
   </div>
   <span id="create_new">+</span>
+  <svg id="canvas"></svg>
 </body>
 </html>

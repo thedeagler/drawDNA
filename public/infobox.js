@@ -53,9 +53,9 @@ function saveContent(e) {
 
     try{
       verifyDNA(appState.DNA);
-      // updateDNA(DNA);
       drawDNA(appState.DNA);
       // makeRequest('POST', 'http://127.0.0.1:3000/data/' + id, DNA);
+      domHide(errorContainer);
     } catch(e) {
       handleParsingError(e);
     }

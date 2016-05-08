@@ -7,7 +7,10 @@ function drawDNA(dbn, sequence) {
   var bases = d3data.nodes;
   var links = d3data.links;
 
-  var svg = d3.select('body').append('svg')
+  // Clear contents of SVG
+  d3.select('#canvas').selectAll('*').remove();
+
+  var svg = d3.select('#canvas')
     .attr('width', width)
     .attr('height', height);
 

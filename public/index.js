@@ -68,7 +68,7 @@ function verifyDNA(DNA) {
         break;
       case ')':
         var pair = unpaired.pop();
-        if(basePairs[nodes[i]] !== basePairs[nodes[pair]]  && !errMap[2]) errMap[2] = 'Mismatched pair.';
+        if(basePairs[nodes[i].base] !== basePairs[nodes[pair].base] && !errMap[2]) errMap[2] = 'Mismatched base pair.';
         break;
       default:
         if(!errMap[0]) errMap[0] = 'Unexpected value in dot-bracket notation.';
