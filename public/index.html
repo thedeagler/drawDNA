@@ -5,19 +5,30 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>drawDNA</title>
   <link rel="stylesheet" href=".https://cdnjs.cloudflare.com/ajax/libs/normalize/4.1.1/normalize.min.css">
-  <link rel="stylesheet" href="../app/style.css">
+  <link rel="stylesheet" href="../style.css">
   <link href='https://fonts.googleapis.com/css?family=Slabo+27px' rel='stylesheet' type='text/css'>
   <script defer src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
-  <script defer src="../app/dnaError.js"></script>
-  <script defer src="../app/index.js"></script>
-  <script defer src="../app/infobox.js"></script>
-  <script defer src="../app/drawDNA.js"></script>
+  <script defer src="../dnaError.js"></script>
+  <script defer src="../index.js"></script>
+  <script defer src="../infobox.js"></script>
+  <script defer src="../settings.js"></script>
+  <script defer src="../drawDNA.js"></script>
 </head>
 <body>
-  <div id="tabs">
-    <div id="editing" class='hidden'><span>__________ Editing __________</span></div>
+  <img id="settings_icon" src="../resources/settings.svg"></img>
+  <div id="settings_container" class="paper hidden">
+    <h3 class="title">Settings<img id="settings_close" src="../resources/close.svg"></img></h3>
+    <div id="color_container">
+      <div class='color_picker'><input id="a_color" type="color" value="#FF8723">&nbsp;Adenine</div>
+      <div class='color_picker'><input id="t_color" type="color" value="#FFC944">&nbsp;Thymine</div>
+      <div class='color_picker'><input id="c_color" type="color" value="#10A8FF">&nbsp;Cytosine</div>
+      <div class='color_picker'><input id="g_color" type="color" value="#00FF81">&nbsp;Guanine</div>
+    </div>
+  </div>
+  <div id="tabs" class="paper" >
+    <div id="editing" class='hidden'><span>Editing</span></div>
     <div id="tab_bar">
-        <span class="tab_title">Sequence</span><span class="tab_title">DBN</span>
+        <span class="tab_title title">Sequence</span><span class="tab_title title">DBN</span>
     </div>
     <div id="tab_content" class="hidden"></div>
     <form id="edit_form" class="hidden">
@@ -32,7 +43,7 @@
     <div id="cancel" class="button hidden">Cancel</div>
     <div id="save" class="button hidden">Save</div>
   </div>
-  <span id="create_new">+</span>
+  <img id="add_icon" class="paper" src="../resources/add_circle.svg"></img>
   <svg id="canvas"></svg>
 </body>
 </html>

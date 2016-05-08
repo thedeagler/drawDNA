@@ -59,4 +59,6 @@ x drag bases in the graph to modify the layout
  */
 - Create legend
 - Create edit menu
+- Scroll to zoom
+- Home / explaination / tutorial page
 

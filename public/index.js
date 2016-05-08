@@ -17,7 +17,7 @@ window.appState = {
     Register Event Listeners
 ========================================
  */
-var createButton = document.getElementById('create_new');
+var createButton = document.getElementById('add_icon');
 createButton.addEventListener('click', function(e) {
   e.stopPropagation();
   console.log('Woah, new thing.');
@@ -31,7 +31,9 @@ createButton.addEventListener('click', function(e) {
 // Get sequence data on page load
 var id = window.location.pathname.split('/')[2];
 var origin = window.location.origin;
-makeRequest('GET', origin + '/data/' + id);
+if(id) {
+  makeRequest('GET', origin + '/data/' + id);
+}
 
 /*
 ========================================
@@ -128,7 +130,7 @@ function handleResponse() {
 
       drawDNA(appState.DNA);
     } else {
-      console.log('There was a problem with the request.');
+      console.error('There was a problem with the request.');
     }
   }
 }

@@ -10,10 +10,9 @@ var Sequence = require('./data/sequenceModel.js');
 var PORT = process.env.PORT || 3000;
 
 // Middleware
-app.use('/app', express.static(__dirname + '/public'));
+app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
-
 
 // Routes
 app.get('/', function(req, res) {
