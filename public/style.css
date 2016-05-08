@@ -12,16 +12,11 @@ body {
   height: 100%;
 }
 
-.node {
-    fill: #ccc;
-    stroke: #fff;
-    stroke-width: 2px;
-}
-
-.link {
-    stroke: #777;
-    stroke-width: 2px;
-}
+/*
+========================================
+    Info / Edit menu
+========================================
+ */
 
 #create_new {
   position: absolute;
@@ -133,6 +128,57 @@ body {
 #error_message {
   font-size: 12px;
 }
+
+/*
+========================================
+    DNA SVGs
+========================================
+ */
+.node {
+  fill: transparent;
+  fill-opacity: .6;
+  stroke-opacity: .7;
+}
+
+.node:hover {
+  stroke: #EE37FF;
+  stroke-width: 3px;
+}
+
+text {
+  pointer-events: none;
+}
+
+.link {
+  stroke: #777;
+  stroke-width: 2px;
+}
+
+.adenine {
+  stroke: #FF8723;
+  fill: #FF8723;
+}
+
+.thymine {
+  stroke: #FFC944;
+  fill: #FFC944;
+}
+
+.cytosine {
+  stroke: #10A8FF;
+  fill: #10A8FF;
+}
+
+.guanine {
+  stroke: #00FF81;
+  fill: #00FF81;
+}
+
+/*
+========================================
+    Utility classes
+========================================
+ */
 
 .selected {
   border-left: 1px solid black;

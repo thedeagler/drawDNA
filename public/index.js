@@ -82,11 +82,6 @@ function verifyDNA(DNA) {
         if(pairIndex === undefined || !bases[i] || !bases[pairIndex]) {
           generateError(5);
         } else {
-          console.log('index pair:', i, pairIndex);
-          console.log('bases', bases[i].base, bases[pairIndex].base);
-          console.log('should match', basePairs[bases[i].base], bases[pairIndex].base);
-          console.log('basePairs:', basePairs);
-
           if(basePairs[bases[i].base] !== bases[pairIndex].base) {
             generateError(2);
           }
