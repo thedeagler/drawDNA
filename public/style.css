@@ -54,7 +54,6 @@ body {
 }
 
 .tab_title {
-  border-bottom: 1px solid black;
   display: inline-block;
   width: 50%;
 }
@@ -62,9 +61,6 @@ body {
 #tab_content {
   background-color: white;
   color: black;
-  border-left: 1px solid black;
-  border-bottom: 1px solid black;
-  border-right: 1px solid black;
   padding: 10px;
   overflow-wrap: break-word;
   max-height: 50vh;
@@ -78,9 +74,6 @@ body {
 }
 
 #edit_form {
-  border-left: 1px solid black;
-  border-bottom: 1px solid black;
-  border-right: 1px solid black;
   padding: 0px;
   background-color: white;
   text-align: center;
@@ -298,10 +291,6 @@ text {
 }
 
 .selected {
-  border-left: 1px solid black;
-  border-top: 1px solid black;
-  border-right: 1px solid black;
-  border-bottom: 0px;
   color: #41BAFF;
   background-color: white;
 }

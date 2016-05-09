@@ -35,7 +35,7 @@ x The DBN should be visible.
 x Label bases
 x Annotate 5' and 3' end
 - Visually differentiate edges for phosphate backbone and base-pair complementarity
-- Save and share link
+x Save and share link
 
 /*
 ========================================
@@ -54,12 +54,37 @@ x drag bases in the graph to modify the layout
 
 /*
 ========================================
-    Todo
+    Backlog
 ========================================
  */
 x Create legend
 x Create edit menu
-- Scroll to zoom
+- Canvas mouse events
+  - Scroll to zoom
+  - Click to drag
 - Home / explaination / tutorial page
 - Webpack/grunt Build
+- Sockets/live updates/collaborative
+- Save display data to server as well
+- Sharelink icon
+- Bad ux not saving invalid edits
+  - Did it for input validity reasons
+- Responsive
+- Respond to window resize
+- Highlight connections as well
+  - Differentiate types of connections with colors
 
+/*
+========================================
+    Example DNA
+========================================
+ */
+1: {
+  dbn: '...(((((.(...).)))))........(((((.....((..(.((((((..(((.((...)).)))..)))))).).)))))))...............',
+  sequence: 'TTGGGGAGACTGGGGCTCCCATTCGTTGCCTTTATAAATCCTCGCAAGCCAATCAACAGGTTGGTGAGGGGCTTGGGTGAAAAGGTGCTTAAGACTCCGT'
+}
+
+2: {
+  dbn: '..(((((..(((...)))..)))))...',
+  sequence: 'TTGGAGTACACAACCTGTACACTCCTTC',
+}

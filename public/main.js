@@ -17,11 +17,6 @@ window.appState = {
     Register Event Listeners
 ========================================
  */
-var createButton = document.getElementById('add_icon');
-createButton.addEventListener('click', function(e) {
-  e.stopPropagation();
-  console.log('Woah, new thing.');
-})
 
 /*
 ========================================
@@ -32,7 +27,16 @@ createButton.addEventListener('click', function(e) {
 var id = window.location.pathname.split('/')[2];
 var origin = window.location.origin;
 if(id) {
-  makeRequest('GET', origin + '/data/' + id);
+  makeRequest('GET', origin + '/data/' + id, function(err, data) {
+    if(data) {
+      appState.DNA.dbn = data.dbn;
+      appState.DNA.sequence = data.sequence;
+
+      drawDNA(appState.DNA);
+    } else {
+      console.error('Error retrieving data:', err);
+    }
+  });
 }
 
 /*
@@ -108,30 +112,28 @@ function verifyDNA(DNA) {
 
 // Make Ajax requests
 var httpRequest;
-function makeRequest(type, url, data) {
+function makeRequest(type, url, callback, data) {
   httpRequest = new XMLHttpRequest();
 
   if (!httpRequest) {
     alert('Giving up :( Cannot create an XMLHTTP instance');
     return false;
   }
-  httpRequest.onreadystatechange = handleResponse;
+
+  httpRequest.onreadystatechange = handleResponse.bind(this, callback);
   httpRequest.open(type, url);
   httpRequest.setRequestHeader("content-type", "application/json");
   httpRequest.send(data);
 }
 
-function handleResponse() {
+function handleResponse(callback) {
   if (httpRequest.readyState === XMLHttpRequest.DONE) {
     if (httpRequest.status === 200) {
-      var response = JSON.parse(httpRequest.responseText);
+      var response = JSON.parse(httpRequest.responseText)
 
-      appState.DNA.dbn = response.dbn;
-      appState.DNA.sequence = response.sequence;
-
-      drawDNA(appState.DNA);
+      callback(null, response);
     } else {
-      console.error('There was a problem with the request.');
+      callback(err, null);
     }
   }
 }

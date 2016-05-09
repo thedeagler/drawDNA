@@ -23,6 +23,7 @@ function drawDNA(DNA) {
     .links(links)
     .linkDistance(linkDistance)
     .linkStrength(1)
+    .gravity(0.15)
     .charge(function(d, i) { return i%3 === 0 ? -400 : -120; });
 
   var allLinks = svg.selectAll('.link')
@@ -35,10 +36,40 @@ function drawDNA(DNA) {
     .attr('x2', function(d) { return bases[d.target].x; })
     .attr('y2', function(d) { return bases[d.target].y; });
 
+  var hoveredChar;
   var nodes = svg.selectAll('.node')
     .data(bases)
     .enter()
     .append('g')
+    .on('mouseover', function(d, i) {
+      var index = i - 1; // Because 5' is the 0th node
+      hoveredChar = document.getElementById('i_' + index);
+      if(hoveredChar) hoveredChar.style.outline = "2px solid #C324FF";
+
+      d3.select(this.children[0])
+        .transition()
+        .attr("r", function(d) { return 1.3 * d.r; })
+        .duration(50);
+      d3.select(this.children[1])
+        .transition()
+        .attr('dx', function(d) { return 1.3 * d.dx; })
+        .attr('font-size', function(d) { return 1.3 * d.fs; })
+        .duration(50);
+    })
+    .on('mouseout', function(d, i){
+      var index = i - 1; // Because 5' is the 0th node
+      if(hoveredChar) hoveredChar.style.outline = "none";
+
+      d3.select(this.children[0])
+        .transition()
+        .attr('r', function(d) { return d.r; })
+        .duration(50);
+      d3.select(this.children[1])
+        .transition()
+        .attr('font-size',function(d) { return d.fs; })
+        .attr('dx', function(d) { return d.dx; })
+        .duration(50);
+    })
     .call(forceLayout.drag);
 
   var radius = 10;
@@ -57,29 +88,7 @@ function drawDNA(DNA) {
     .attr('r', function(d) {return d.r = radius; })
     .attr('cx', function(d) { return d.x; })
     .attr('cy', function(d) { return d.y; })
-    .attr('fill', 'white')
-    .on('mouseover', function() {
-      d3.select(this)
-        .transition()
-        .attr("r", function(d) { return 1.3 * d.r; })
-        .duration(50);
-      d3.select(this.nextSibling)
-        .transition()
-        .attr('dx', function(d) { return 1.3 * d.dx; })
-        .attr('font-size', function(d) { return 1.3 * d.fs; })
-        .duration(50);
-    })
-    .on('mouseout', function(){
-      d3.select(this)
-        .transition()
-        .attr('r', function(d) { return d.r; })
-        .duration(50);
-      d3.select(this.nextSibling)
-        .transition()
-        .attr('font-size',function(d) { return d.fs; })
-        .attr('dx', function(d) { return d.dx; })
-        .duration(50);
-    });
+    .attr('fill', 'white');
 
   nodes.append('text')
     .attr('font-size', function(d) { return d.fs = fontSize; })

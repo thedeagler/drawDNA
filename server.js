@@ -54,7 +54,7 @@ app.post('/data/:id', function(req, res) {
   var id = req.params.id;
   var seqData = req.body;
 
-  Sequence.findOneAndUpdate({_id: id}, seqData, function(err, seqEntry) {
+  Sequence.findOneAndUpdate({_id: id}, seqData, {new: true}, function(err, seqEntry) {
     if(seqEntry) {
       res.status(200).send(seqEntry);
     } else {

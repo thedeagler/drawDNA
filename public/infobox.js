@@ -43,17 +43,31 @@ function saveContent(e) {
   e.stopPropagation();
   e.preventDefault();
 
-  var newDBN = dbnEditBox.value.replace(/\s+/g, "");
-  var newSeq = seqEditBox.value.toUpperCase().replace(/\s+/g, "");
+  var newDNA = {
+    dbn: dbnEditBox.value.replace(/\s+/g, ""),
+    sequence: seqEditBox.value.toUpperCase().replace(/\s+/g, ""),
+  }
 
-  if(newDBN !== appState.DNA.dbn || newSeq !== appState.DNA.sequence) {
-    appState.DNA.dbn = newDBN;
-    appState.DNA.sequence = newSeq;
-
+  if(newDNA.dbn !== appState.DNA.dbn || newDNA.sequence !== appState.DNA.sequence) {
     try{
-      verifyDNA(appState.DNA);
-      // drawDNA(appState.DNA);
-      makeRequest('POST', 'http://127.0.0.1:3000/data/' + id, JSON.stringify(appState.DNA));
+      verifyDNA(newDNA);
+      appState.DNA = newDNA;
+      // Draw optimistically
+      drawDNA(appState.DNA);
+      makeRequest('POST', 'http://127.0.0.1:3000/data/' + id, function(err, data) {
+        if(data) {
+          // Redraw if data from server is different than client
+          if(data.dbn !== appState.DNA.dbn || data.sequence !== appState.DNA.sequence) {
+            appState.DNA.dbn = data.dbn;
+            appState.DNA.sequence = data.sequence;
+
+            // TODO: Client should always be right - not sure if this is necessary.
+            // drawDNA(appState.DNA);
+          }
+        } else {
+          console.error('Error retrieving data:', err);
+        }
+      }, JSON.stringify(appState.DNA));
       domHide(errorContainer);
     } catch(e) {
       handleParsingError(e);
@@ -144,7 +158,7 @@ function handleTabClick(e) {
       appState.selectedTab = appState.selectedTabElement.textContent.toLowerCase();
       appState.selectedTabElement.classList.toggle('selected');
       domShow(tabContent);
-      tabContent.innerText = appState.DNA[e.target.textContent.toLowerCase()];
+      tabContent.innerHTML = createTabHTML(appState.DNA[e.target.textContent.toLowerCase()]);
     }
 
     // Manipulate edit button
@@ -154,4 +168,12 @@ function handleTabClick(e) {
       domHide(editButton);
     }
   }
+}
+
+function createTabHTML(contentString) {
+  // Escape input
+  var content = escapeHtml(contentString);
+  return contentString.split('').map(function(char, i) {
+    return '<span id="i_' + i + '">' + char + '</span>';
+  }).join('');
 }
