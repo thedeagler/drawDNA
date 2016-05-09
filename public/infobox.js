@@ -54,7 +54,9 @@ function saveContent(e) {
       appState.DNA = newDNA;
       // Draw optimistically
       drawDNA(appState.DNA);
-      makeRequest('POST', 'http://127.0.0.1:3000/data/' + id, function(err, data) {
+      var id = window.location.pathname.split('/')[2];
+      var origin = window.location.origin;
+      makeRequest('POST', origin + '/data/' + id, function(err, data) {
         if(data) {
           // Redraw if data from server is different than client
           if(data.dbn !== appState.DNA.dbn || data.sequence !== appState.DNA.sequence) {

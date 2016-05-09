@@ -65,7 +65,7 @@ x Create edit menu
 - Home / explaination / tutorial page
 - Webpack/grunt Build
 - Sockets/live updates/collaborative
-- Save display data to server as well
+- Save display data to server in addition to DNA data
 - Sharelink icon
 - Bad ux not saving invalid edits
   - Did it for input validity reasons
