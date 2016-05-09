@@ -129,7 +129,7 @@ function handleResponse() {
       appState.DNA.dbn = response.dbn;
       appState.DNA.sequence = response.sequence;
 
-      // drawDNA(appState.DNA);
+      drawDNA(appState.DNA);
     } else {
       console.error('There was a problem with the request.');
     }
