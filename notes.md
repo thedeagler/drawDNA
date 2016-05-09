@@ -58,7 +58,8 @@ x drag bases in the graph to modify the layout
 ========================================
  */
 x Create legend
-- Create edit menu
+x Create edit menu
 - Scroll to zoom
 - Home / explaination / tutorial page
+- Webpack/grunt Build
 

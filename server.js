@@ -52,21 +52,20 @@ app.get('/data/:id', function(req, res) {
 
 app.post('/data/:id', function(req, res) {
   var id = req.params.id;
-  var seqData = req.body.data;
-  console.log('seqData:', seqData);
+  var seqData = req.body;
 
-  // Sequence.findOneAndUpdate({_id: id}, function(err, seqEntry) {
-  //   if(seqEntry) {
-  //     res.status(200).send(seqEntry);
-  //   } else {
-  //     res.status(404).send({
-  //       error: err,
-  //       message: 'Sequence not found.'
-  //     });
-  //   }
-  // });
+  Sequence.findOneAndUpdate({_id: id}, seqData, function(err, seqEntry) {
+    if(seqEntry) {
+      res.status(200).send(seqEntry);
+    } else {
+      res.status(400).send({
+        error: err,
+        message: 'Unable to update.'
+      });
+    }
+  });
 });
 
 app.listen(PORT, function () {
-  console.log('drawDNA server started on port', PORT);
+  console.log('drawDNA server listening on port', PORT, 'at', new Date().toLocaleTimeString());
 });

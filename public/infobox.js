@@ -18,8 +18,6 @@ var errorMessage = document.getElementById('error_message');
     Nested listeners are registered in the nested component
 ========================================
  */
-
-
 tabs.forEach(function(tab) {
   tab.addEventListener('click', handleTabClick.bind(tab));
 })
@@ -54,8 +52,8 @@ function saveContent(e) {
 
     try{
       verifyDNA(appState.DNA);
-      drawDNA(appState.DNA);
-      // makeRequest('POST', 'http://127.0.0.1:3000/data/' + id, DNA);
+      // drawDNA(appState.DNA);
+      makeRequest('POST', 'http://127.0.0.1:3000/data/' + id, JSON.stringify(appState.DNA));
       domHide(errorContainer);
     } catch(e) {
       handleParsingError(e);
