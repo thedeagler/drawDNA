@@ -27,12 +27,6 @@ body {
   text-align: center;
 }
 
-/*
-========================================
-    Info / Edit menu
-========================================
- */
-
 #add_icon {
   position: absolute;
   bottom: 20px;
@@ -42,6 +36,16 @@ body {
   border-radius: 40px;
 }
 
+#add_icon:hover {
+  stroke: black;
+  stroke-width: 5px;
+}
+
+/*
+========================================
+    Info / Edit menu
+========================================
+ */
 #tabs {
   position: absolute;
   right: 0;
@@ -297,4 +301,10 @@ text {
 
 .hidden {
   display: none;
+}
+
+.node.makelink {
+  stroke: #4FFF54;
+  stroke-width: 3px;
+  stroke-opacity: 1;
 }

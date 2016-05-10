@@ -1,3 +1,10 @@
+/*
+========================================
+    Draws the D3 Force graph
+    Event handlers below
+========================================
+ */
+
 function drawDNA(DNA) {
   var d3data = getD3Data(DNA);
 
@@ -41,35 +48,9 @@ function drawDNA(DNA) {
     .data(bases)
     .enter()
     .append('g')
-    .on('mouseover', function(d, i) {
-      var index = i - 1; // Because 5' is the 0th node
-      hoveredChar = document.getElementById('i_' + index);
-      if(hoveredChar) hoveredChar.style.outline = "2px solid #C324FF";
-
-      d3.select(this.children[0])
-        .transition()
-        .attr("r", function(d) { return 1.3 * d.r; })
-        .duration(50);
-      d3.select(this.children[1])
-        .transition()
-        .attr('dx', function(d) { return 1.3 * d.dx; })
-        .attr('font-size', function(d) { return 1.3 * d.fs; })
-        .duration(50);
-    })
-    .on('mouseout', function(d, i){
-      var index = i - 1; // Because 5' is the 0th node
-      if(hoveredChar) hoveredChar.style.outline = "none";
-
-      d3.select(this.children[0])
-        .transition()
-        .attr('r', function(d) { return d.r; })
-        .duration(50);
-      d3.select(this.children[1])
-        .transition()
-        .attr('font-size',function(d) { return d.fs; })
-        .attr('dx', function(d) { return d.dx; })
-        .duration(50);
-    })
+    .on('click', nodeClick.call(this))
+    .on('mouseenter', nodeMouseEnter.call(this))
+    .on('mouseleave', nodeMouseLeave.call(this))
     .call(forceLayout.drag);
 
   var radius = 10;
@@ -100,15 +81,101 @@ function drawDNA(DNA) {
   forceLayout.on('tick', function() {
     nodes.attr('transform', function(d) { return 'translate(' + d.x + ',' + d.y + ')'; });
 
-    allLinks.transition().ease('linear').duration(timeBetweenFrames)
-      .attr('x1', function(d) { return d.source.x; })
-      .attr('y1', function(d) { return d.source.y; })
-      .attr('x2', function(d) { return d.target.x; })
-      .attr('y2', function(d) { return d.target.y; });
+    // allLinks.transition().ease('linear').duration(timeBetweenFrames)
+    //   .attr('x1', function(d) { return d.source.x; })
+    //   .attr('y1', function(d) { return d.source.y; })
+    //   .attr('x2', function(d) { return d.target.x; })
+    //   .attr('y2', function(d) { return d.target.y; });
+    //
+    allLinks.attr("x1", function(d) { return d.source.x; })
+      .attr("y1", function(d) { return d.source.y; })
+      .attr("x2", function(d) { return d.target.x; })
+      .attr("y2", function(d) { return d.target.y; });
   });
 
   forceLayout.start();
+
+  /*
+  ========================================
+      D3 Event handlers
+  ========================================
+   */
+
+  // Enlarges node and label
+  function nodeMouseEnter() {
+    return function(d, i) {
+      var index = i - 1; // Because 5' is the 0th node
+      hoveredChar = document.getElementById('i_' + index);
+      if(hoveredChar) hoveredChar.style.outline = "2px solid #C324FF";
+
+      d3.select(this.children[0])
+        .transition()
+        .attr("r", function(d) { return 1.3 * d.r; })
+        .duration(50);
+      d3.select(this.children[1])
+        .transition()
+        .attr('dx', function(d) { return 1.3 * d.dx; })
+        .attr('font-size', function(d) { return 1.3 * d.fs; })
+        .duration(50);
+    }
+  }
+
+  // Unlargens node and label
+  function nodeMouseLeave() {
+    return function(d, i) {
+      var index = i - 1; // Because 5' is the 0th node
+      if(hoveredChar) hoveredChar.style.outline = "none";
+
+      d3.select(this.children[0])
+        .transition()
+        .attr('r', function(d) { return d.r; })
+        .duration(50);
+      d3.select(this.children[1])
+        .transition()
+        .attr('font-size',function(d) { return d.fs; })
+        .attr('dx', function(d) { return d.dx; })
+        .duration(50);
+    }
+  }
+
+  // Creates links between nodes on click
+  function nodeClick() {
+    var selected = [];
+
+    return function(d, i) {
+      // Control styling of selected nodes
+      if(selected.length === 1 && selected[0].i === i) {
+        selected.pop();
+        this.children[0].classList.remove('makelink');
+      } else if(selected.length < 2) {
+        selected.push({d: d, i: i, dom: this.children[0]});
+        this.children[0].classList.add('makelink');
+      }
+
+      // Create new link
+      if(selected.length === 2) {
+        links.push({source: selected[0].d, target: selected[1].d, isPair: true});
+
+        allLinks = allLinks.data(links);
+        allLinks.enter()
+          .append('line')
+          .attr('class', 'link')
+          .attr('x1', function(d) { return d.source.x; })
+          .attr('y1', function(d) { return d.source.y; })
+          .attr('x2', function(d) { return d.target.x; })
+          .attr('y2', function(d) { return d.target.y; });
+        allLinks.exit().remove();
+
+        // Clear out selection classes and selected array
+        selected.forEach(function(el) { el.dom.classList.remove('makelink'); });
+        selected = [];
+
+        forceLayout.start();
+      }
+    }
+  }
 }
+
 
 // Create data for d3 force graph
 function getD3Data(DNA) {

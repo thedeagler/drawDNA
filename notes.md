@@ -73,6 +73,10 @@ x Create edit menu
 - Respond to window resize
 - Highlight connections as well
   - Differentiate types of connections with colors
+- Add button highlight on hover
+  - Change to PNG instead of svg?
+- Make DNA object
+  - Create "DNA builder" where you can add one node at a time and make connections
 
 /*
 ========================================
