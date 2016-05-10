@@ -6,6 +6,7 @@
 - Force graph
 - Styling svgs
   -outlining a g
+- Many small challenges working with d3 - just had to read the docs and examine the code
 
 /*
 ========================================
@@ -47,9 +48,9 @@ x size of the base representation
 x font for the label *(maybe not so good) - have it scaling with node size
 x line width (did length instead. imo width is not useful, but trivial if necessary)
 x drag bases in the graph to modify the layout
-- When hovering a base in either the sequence or graph, the corresponding base should be highlighted in the sequence.
-- create connections by connecting two unpaired and complementary bases (e.g. C and G, or A and T)
-  - DBN should update
+x When hovering a base in either the sequence or graph, the corresponding base should be highlighted in the sequence.
+x create connections by connecting two unpaired and complementary bases (e.g. C and G, or A and T)
+  x DBN should update
 
 
 /*
@@ -57,26 +58,39 @@ x drag bases in the graph to modify the layout
     Backlog
 ========================================
  */
-x Create legend
-x Create edit menu
+- Home / explaination / tutorial page
+- Highlight connections as well
+  - Differentiate types of connections with colors
+- Sharelink icon
+- Store base pair relationship somewhere globalish
+- Need more detailed error check on link making
+
 - Canvas mouse events
   - Scroll to zoom
   - Click to drag
-- Home / explaination / tutorial page
 - Webpack/grunt Build
 - Sockets/live updates/collaborative
 - Save display data to server in addition to DNA data
-- Sharelink icon
-- Bad ux not saving invalid edits
+- Fix Bad ux not saving invalid edits
   - Did it for input validity reasons
 - Responsive
 - Respond to window resize
-- Highlight connections as well
-  - Differentiate types of connections with colors
 - Add button highlight on hover
   - Change to PNG instead of svg?
 - Make DNA object
   - Create "DNA builder" where you can add one node at a time and make connections
+- When creating links, show selectable bases
+- Refactor to React
+
+x Create legend
+x Create edit menu
+
+/*
+========================================
+    Bugs
+========================================
+ */
+- New links created over other elements
 
 /*
 ========================================

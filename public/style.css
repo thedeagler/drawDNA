@@ -294,17 +294,21 @@ text {
   cursor: pointer;
 }
 
-.selected {
+.selected_tab {
   color: #41BAFF;
   background-color: white;
 }
 
-.hidden {
-  display: none;
+.selected_char {
+  outline: 3px solid #4FFF54;
 }
 
-.node.makelink {
+.node.selected_node {
   stroke: #4FFF54;
   stroke-width: 3px;
   stroke-opacity: 1;
+}
+
+.hidden {
+  display: none;
 }

@@ -44,6 +44,7 @@ function drawDNA(DNA) {
     .attr('y2', function(d) { return bases[d.target].y; });
 
   var hoveredChar;
+  var selectedChar;
   var nodes = svg.selectAll('.node')
     .data(bases)
     .enter()
@@ -69,7 +70,10 @@ function drawDNA(DNA) {
     .attr('r', function(d) {return d.r = radius; })
     .attr('cx', function(d) { return d.x; })
     .attr('cy', function(d) { return d.y; })
-    .attr('fill', 'white');
+    .attr('fill', 'white')
+    .attr('pointer-events', function(d, i) {
+      if(i === 0 || i === bases.length - 1) return 'none';
+    });
 
   nodes.append('text')
     .attr('font-size', function(d) { return d.fs = fontSize; })
@@ -81,12 +85,6 @@ function drawDNA(DNA) {
   forceLayout.on('tick', function() {
     nodes.attr('transform', function(d) { return 'translate(' + d.x + ',' + d.y + ')'; });
 
-    // allLinks.transition().ease('linear').duration(timeBetweenFrames)
-    //   .attr('x1', function(d) { return d.source.x; })
-    //   .attr('y1', function(d) { return d.source.y; })
-    //   .attr('x2', function(d) { return d.target.x; })
-    //   .attr('y2', function(d) { return d.target.y; });
-    //
     allLinks.attr("x1", function(d) { return d.source.x; })
       .attr("y1", function(d) { return d.source.y; })
       .attr("x2", function(d) { return d.target.x; })
@@ -104,9 +102,9 @@ function drawDNA(DNA) {
   // Enlarges node and label
   function nodeMouseEnter() {
     return function(d, i) {
-      var index = i - 1; // Because 5' is the 0th node
+      var index = i - 1; // Because 5' is the 0th "node"
       hoveredChar = document.getElementById('i_' + index);
-      if(hoveredChar) hoveredChar.style.outline = "2px solid #C324FF";
+      if(hoveredChar) hoveredChar.style.outline = '2px solid #C324FF';
 
       d3.select(this.children[0])
         .transition()
@@ -124,7 +122,10 @@ function drawDNA(DNA) {
   function nodeMouseLeave() {
     return function(d, i) {
       var index = i - 1; // Because 5' is the 0th node
-      if(hoveredChar) hoveredChar.style.outline = "none";
+      if(hoveredChar) {
+        hoveredChar.style.outline = "none";
+        hoveredChar = null;
+      }
 
       d3.select(this.children[0])
         .transition()
@@ -140,37 +141,61 @@ function drawDNA(DNA) {
 
   // Creates links between nodes on click
   function nodeClick() {
-    var selected = [];
+    var selected = null;
+    var basePairs = {A: 'T', T: 'A', C: 'G', G: 'C' };
 
     return function(d, i) {
-      // Control styling of selected nodes
-      if(selected.length === 1 && selected[0].i === i) {
-        selected.pop();
-        this.children[0].classList.remove('makelink');
-      } else if(selected.length < 2) {
-        selected.push({d: d, i: i, dom: this.children[0]});
-        this.children[0].classList.add('makelink');
-      }
+      if (d3.event.defaultPrevented) return; // Mouse has dragged in this event
 
-      // Create new link
-      if(selected.length === 2) {
-        links.push({source: selected[0].d, target: selected[1].d, isPair: true});
+      if(selected === null) { // None selected makes clicked the selection
+        selected = {
+          d: d,
+          classList: this.children[0].classList,
+        };
+        this.children[0].classList.add('selected_node');
+      } else {
+        if(selected.d === d) { // Same one selected.d will cancel the selection
+          selected = null;
+          this.children[0].classList.remove('selected_node');
+        } else { // Different one selected will attempt to make a link
+          // Create new link
+          if(basePairs[d.base] === selected.d.base) { // TODO: need more validation - also need to check dbn to see if legal without pseudoknots. Must be a '.', and also must create a valid, balanced dbn after
+            // Create new dbn
+            var dbnArr = appState.DNA.dbn.split('');
+            dbnArr[Math.min(selected.d.index - 1, i - 1)] = '(';
+            dbnArr[Math.max(selected.d.index - 1, i - 1)] = ')';
+            appState.DNA.dbn = dbnArr.join('');
 
-        allLinks = allLinks.data(links);
-        allLinks.enter()
-          .append('line')
-          .attr('class', 'link')
-          .attr('x1', function(d) { return d.source.x; })
-          .attr('y1', function(d) { return d.source.y; })
-          .attr('x2', function(d) { return d.target.x; })
-          .attr('y2', function(d) { return d.target.y; });
-        allLinks.exit().remove();
+            var id = window.location.pathname.split('/')[2];
+            var origin = window.location.origin;
+            makeRequest('POST', origin + '/data/' + id, function(err, data) {
+              if(err) console.error('Error retrieving data:', err);
+            }, JSON.stringify(appState.DNA));
+            if(appState.selectedTab === 'dbn') {
+              document.getElementById('tab_content').innerHTML = createTabHTML(appState.DNA.dbn);
+            }
 
-        // Clear out selection classes and selected array
-        selected.forEach(function(el) { el.dom.classList.remove('makelink'); });
-        selected = [];
+            links.push({source: selected.d, target: d, isPair: true});
 
-        forceLayout.start();
+            allLinks = allLinks.data(links);
+            allLinks.enter()
+              .append('line')
+              .attr('class', 'link')
+              .attr('x1', function(d) { return d.x; })
+              .attr('y1', function(d) { return d.y; })
+              .attr('x2', function(d) { return selected.d.x; })
+              .attr('y2', function(d) { return selected.d.y; });
+            allLinks.exit().remove();
+
+            // Reset selected
+            selected.classList.remove('selected_node');
+            selected = null;
+
+            forceLayout.start();
+          } else {
+            console.log('no match')
+          }
+        }
       }
     }
   }

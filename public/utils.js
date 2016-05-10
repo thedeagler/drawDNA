@@ -1,4 +1,11 @@
 (function() {
+  window.createTabHTML = function(contentString) {
+    var content = escapeHtml(contentString);
+    return contentString.split('').map(function(char, i) {
+      return '<span id="i_' + i + '">' + char + '</span>';
+    }).join('');
+  }
+
   var matchHtmlRegExp = /["'&<>]/;
   window.escapeHtml = function(string) {
     var str = '' + string;

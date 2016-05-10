@@ -52,23 +52,11 @@ function saveContent(e) {
     try{
       verifyDNA(newDNA);
       appState.DNA = newDNA;
-      // Draw optimistically
       drawDNA(appState.DNA);
       var id = window.location.pathname.split('/')[2];
       var origin = window.location.origin;
       makeRequest('POST', origin + '/data/' + id, function(err, data) {
-        if(data) {
-          // Redraw if data from server is different than client
-          if(data.dbn !== appState.DNA.dbn || data.sequence !== appState.DNA.sequence) {
-            appState.DNA.dbn = data.dbn;
-            appState.DNA.sequence = data.sequence;
-
-            // TODO: Client should always be right - not sure if this is necessary.
-            // drawDNA(appState.DNA);
-          }
-        } else {
-          console.error('Error retrieving data:', err);
-        }
+        if(err) console.error('Error retrieving data:', err);
       }, JSON.stringify(appState.DNA));
       domHide(errorContainer);
     } catch(e) {
@@ -89,7 +77,7 @@ function cancelEdit(e) {
 
 function toggleEditing(editing) {
   if(editing) {
-    appState.selectedTabElement.classList.remove('selected');
+    appState.selectedTabElement.classList.remove('selected_tab');
     tabContainer.classList.add('editing');
 
     saveButton.addEventListener('click', saveContent);
@@ -104,7 +92,7 @@ function toggleEditing(editing) {
 
     appState.editing = true;
   } else {
-    appState.selectedTabElement.classList.add('selected');
+    appState.selectedTabElement.classList.add('selected_tab');
     tabContainer.classList.remove('editing');
 
     saveButton.removeEventListener('click', saveContent);
@@ -146,7 +134,7 @@ function handleTabClick(e) {
     var selected = e.target;
 
     // Manipulate content
-    if(appState.selectedTabElement) appState.selectedTabElement.classList.toggle('selected');
+    if(appState.selectedTabElement) appState.selectedTabElement.classList.toggle('selected_tab');
 
     if(appState.selectedTabElement === selected) {
       // Deselect
@@ -158,7 +146,7 @@ function handleTabClick(e) {
       // Make selection
       appState.selectedTabElement = selected;
       appState.selectedTab = appState.selectedTabElement.textContent.toLowerCase();
-      appState.selectedTabElement.classList.toggle('selected');
+      appState.selectedTabElement.classList.toggle('selected_tab');
       domShow(tabContent);
       tabContent.innerHTML = createTabHTML(appState.DNA[e.target.textContent.toLowerCase()]);
     }
@@ -170,12 +158,4 @@ function handleTabClick(e) {
       domHide(editButton);
     }
   }
-}
-
-function createTabHTML(contentString) {
-  // Escape input
-  var content = escapeHtml(contentString);
-  return contentString.split('').map(function(char, i) {
-    return '<span id="i_' + i + '">' + char + '</span>';
-  }).join('');
 }
