@@ -37,7 +37,7 @@ function drawDNA(DNA) {
     .data(links)
     .enter()
     .append('line')
-    .attr('class', 'link')
+    .attr('class', function(d, i) { return d.isPair ? 'pair' : 'link'; })
     .attr('x1', function(d) { return bases[d.source].x; })
     .attr('y1', function(d) { return bases[d.source].y; })
     .attr('x2', function(d) { return bases[d.target].x; })
@@ -98,7 +98,6 @@ function drawDNA(DNA) {
       D3 Event handlers
   ========================================
    */
-
   // Enlarges node and label
   function nodeMouseEnter() {
     return function(d, i) {
@@ -158,13 +157,20 @@ function drawDNA(DNA) {
           selected = null;
           this.children[0].classList.remove('selected_node');
         } else { // Different one selected will attempt to make a link
-          // Create new link
-          if(basePairs[d.base] === selected.d.base) { // TODO: need more validation - also need to check dbn to see if legal without pseudoknots. Must be a '.', and also must create a valid, balanced dbn after
-            // Create new dbn
             var dbnArr = appState.DNA.dbn.split('');
             dbnArr[Math.min(selected.d.index - 1, i - 1)] = '(';
             dbnArr[Math.max(selected.d.index - 1, i - 1)] = ')';
-            appState.DNA.dbn = dbnArr.join('');
+            var newDBN = dbnArr.join('');
+            console.log('dbnArr.join(""):', dbnArr.join(''));
+
+            var testDNA = {
+              dbn: newDBN,
+              sequence: appState.DNA.sequence,
+            };
+
+          try {
+            verifyDNA(testDNA)
+            appState.DNA.dbn = newDBN;
 
             var id = window.location.pathname.split('/')[2];
             var origin = window.location.origin;
@@ -180,7 +186,7 @@ function drawDNA(DNA) {
             allLinks = allLinks.data(links);
             allLinks.enter()
               .append('line')
-              .attr('class', 'link')
+              .attr('class', 'pair')
               .attr('x1', function(d) { return d.x; })
               .attr('y1', function(d) { return d.y; })
               .attr('x2', function(d) { return selected.d.x; })
@@ -192,8 +198,8 @@ function drawDNA(DNA) {
             selected = null;
 
             forceLayout.start();
-          } else {
-            console.log('no match')
+          } catch(e) {
+            console.log(e)
           }
         }
       }

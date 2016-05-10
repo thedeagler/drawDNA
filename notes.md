@@ -91,6 +91,7 @@ x Create edit menu
 ========================================
  */
 - New links created over other elements
+- Adjacent base pairs double up on links and end up being too close (need to remove non-bp link)
 
 /*
 ========================================

@@ -251,6 +251,11 @@ text {
   stroke-width: 2px;
 }
 
+.pair {
+  stroke: #C60000;
+  stroke-width: 3px;
+}
+
 .adenine {
   stroke: #FF8723;
   fill: #FF8723;
