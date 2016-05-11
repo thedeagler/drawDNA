@@ -81,6 +81,7 @@ x create connections by connecting two unpaired and complementary bases (e.g. C 
   - Create "DNA builder" where you can add one node at a time and make connections
 - When creating links, show selectable bases
 - Refactor to React
+- Edit links and nodes instead of redraw
 
 x Create legend
 x Create edit menu
@@ -90,6 +91,8 @@ x Create edit menu
     Bugs
 ========================================
  */
+- Error notification persists even though bad data doesn't save
+- Infobox spans aren't created on load
 - New links created over other elements
 - Adjacent base pairs double up on links and end up being too close (need to remove non-bp link)
 

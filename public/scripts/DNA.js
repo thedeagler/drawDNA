@@ -1,12 +1,29 @@
+function DNA(dbn, sequence) {
+  this.sequence = sequence || '';
+  this.dbn = dbn || '';
+}
+
+DNA.prototype.setSequence = function(sequence) {
+  this.sequence = sequence;
+}
+
+DNA.prototype.setDbn = function(dbn) {
+  this.dbn = dbn;
+}
+
+DNA.prototype.setDNA = function(newDNA) {
+  this.dbn = newDNA.dbn;
+  this.sequence = newDNA.sequence;
+}
+
 /*
 ========================================
     Draws the D3 Force graph
     Event handlers below
 ========================================
  */
-
-function drawDNA(DNA) {
-  var d3data = getD3Data(DNA);
+DNA.prototype.draw = function() {
+  var d3data = getD3Data(this);
 
   var width = window.innerWidth,
       height = window.innerHeight;
@@ -15,23 +32,25 @@ function drawDNA(DNA) {
   var links = d3data.links;
 
   // Clear contents of SVG
+  var loading = document.getElementById('loading');
   d3.select('#canvas').selectAll('g').remove();
   d3.select('#canvas').selectAll('line').remove();
+  utils.domShow(loading);
 
   var svg = d3.select('#canvas')
     .attr('width', width)
     .attr('height', height);
 
-  var linkDistance = 5;
+  var linkDistance = 20;
 
-  window.forceLayout = d3.layout.force()
+  window.forceLayout = d3.layout.force() // Add to window so settings menu can change settings.
     .size([width, height])
     .nodes(bases)
     .links(links)
     .linkDistance(linkDistance)
-    .linkStrength(1)
-    .gravity(0.15)
-    .charge(function(d, i) { return i%3 === 0 ? -400 : -120; });
+    .linkStrength(2)
+    .gravity(0.1)
+    .charge(-200);
 
   var allLinks = svg.selectAll('.link')
     .data(links)
@@ -43,8 +62,6 @@ function drawDNA(DNA) {
     .attr('x2', function(d) { return bases[d.target].x; })
     .attr('y2', function(d) { return bases[d.target].y; });
 
-  var hoveredChar;
-  var selectedChar;
   var nodes = svg.selectAll('.node')
     .data(bases)
     .enter()
@@ -89,6 +106,11 @@ function drawDNA(DNA) {
       .attr("y1", function(d) { return d.source.y; })
       .attr("x2", function(d) { return d.target.x; })
       .attr("y2", function(d) { return d.target.y; });
+
+    if(forceLayout.alpha() < 0.012 && loading) {
+      utils.domHide(loading);
+      loading = null;
+    }
   });
 
   forceLayout.start();
@@ -99,6 +121,7 @@ function drawDNA(DNA) {
   ========================================
    */
   // Enlarges node and label
+  var hoveredChar;
   function nodeMouseEnter() {
     return function(d, i) {
       var index = i - 1; // Because 5' is the 0th "node"
@@ -144,24 +167,23 @@ function drawDNA(DNA) {
     var basePairs = {A: 'T', T: 'A', C: 'G', G: 'C' };
 
     return function(d, i) {
-      if (d3.event.defaultPrevented) return; // Mouse has dragged in this event
+      if (d3.event.defaultPrevented) return; // Mouse has dragged in this event, so don't consider a click
 
-      if(selected === null) { // None selected makes clicked the selection
+      if(selected === null) { // Nothing selected so far automatically makes selection
         selected = {
           d: d,
           classList: this.children[0].classList,
         };
         this.children[0].classList.add('selected_node');
       } else {
-        if(selected.d === d) { // Same one selected.d will cancel the selection
+        if(selected.d === d) { // Same base selected will cancel the selection
           selected = null;
           this.children[0].classList.remove('selected_node');
-        } else { // Different one selected will attempt to make a link
+        } else { // New base selected will attempt to make a pair
             var dbnArr = appState.DNA.dbn.split('');
             dbnArr[Math.min(selected.d.index - 1, i - 1)] = '(';
             dbnArr[Math.max(selected.d.index - 1, i - 1)] = ')';
             var newDBN = dbnArr.join('');
-            console.log('dbnArr.join(""):', dbnArr.join(''));
 
             var testDNA = {
               dbn: newDBN,
@@ -169,16 +191,18 @@ function drawDNA(DNA) {
             };
 
           try {
-            verifyDNA(testDNA)
-            appState.DNA.dbn = newDBN;
+            utils.verifyDNA(testDNA)
+            if(appState.DNA.dbn[selected.d.index - 1] !== '.'
+              || appState.DNA.dbn[i - 1] !== '.') throw new Error();
+            appState.DNA.setDbn(newDBN);
 
             var id = window.location.pathname.split('/')[2];
             var origin = window.location.origin;
-            makeRequest('POST', origin + '/data/' + id, function(err, data) {
+            utils.makeRequest('POST', origin + '/data/' + id, function(err, data) {
               if(err) console.error('Error retrieving data:', err);
             }, JSON.stringify(appState.DNA));
             if(appState.selectedTab === 'dbn') {
-              document.getElementById('tab_content').innerHTML = createTabHTML(appState.DNA.dbn);
+              document.getElementById('tab_content').innerHTML = utils.createTabHTML(appState.DNA.dbn);
             }
 
             links.push({source: selected.d, target: d, isPair: true});
@@ -193,58 +217,73 @@ function drawDNA(DNA) {
               .attr('y2', function(d) { return selected.d.y; });
             allLinks.exit().remove();
 
+            forceLayout.start();
+          } catch(e) {
+            var notifyArea = document.getElementById('notify');
+            var notifyText = notifyArea.children[1];
+            notifyText.innerText = "Unable to create base-pair link";
+
+            notifyArea.classList.add('pop_in');
+            notifyArea.classList.remove('pop_out');
+            notifyArea.addEventListener('transitionend', function() {
+              setTimeout(function() {
+                notifyArea.classList.add('pop_out');
+                notifyArea.classList.remove('pop_in');
+              }, 2000);
+            })
+          } finally {
             // Reset selected
             selected.classList.remove('selected_node');
             selected = null;
-
-            forceLayout.start();
-          } catch(e) {
-            console.log(e)
           }
         }
       }
     }
   }
-}
 
+  // Create data for d3 force graph
+  function getD3Data(DNA) {
+    var dbn = '.' + DNA.dbn + '.';
+    var sequence = DNA.sequence;
+    var links = [];
+    var unpaired = [];
+    var basePairs = {A: 'T', T: 'A', C: 'G', G: 'C' };
+    var nodes = sequence.toUpperCase().split('').map(function(base) { return {base: base}; });
 
-// Create data for d3 force graph
-function getD3Data(DNA) {
-  var dbn = '.' + DNA.dbn + '.';
-  var sequence = DNA.sequence;
-  var links = [];
-  var unpaired = [];
-  var basePairs = {A: 'T', T: 'A', C: 'G', G: 'C' };
-  var nodes = sequence.toUpperCase().split('').map(function(base) { return {base: base}; });
-  nodes.unshift({base: "5'"});
-  nodes.push({base: "3'"});
-
-  dbn.split('').forEach(function(db, i) {
-    switch(db) {
-      case '.':
-        break;
-      case '(':
-        unpaired.push(i);
-        break;
-      case ')':
-        links.push(new Link(unpaired.pop(), i, true));
-        break;
-      default: break;
-    };
-
-    if(i < nodes.length - 1) {
-      links.push(new Link(i, i+1));
+    // Add 5' and 3' markers if there is a string
+    if(nodes.length) {
+      nodes.unshift({base: "5'"});
+      nodes.push({base: "3'"});
     }
-  });
 
-  return {
-    nodes: nodes,
-    links: links
+    dbn.split('').forEach(function(db, i) {
+      switch(db) {
+        case '.':
+          break;
+        case '(':
+          unpaired.push(i);
+          break;
+        case ')':
+          links.push(new Link(unpaired.pop(), i, true));
+          break;
+        default: break;
+      };
+
+      if(i < nodes.length - 1) {
+        links.push(new Link(i, i+1));
+      }
+    });
+
+    return {
+      nodes: nodes,
+      links: links
+    }
+
+    function Link(source, target, isPair) {
+      this.source = source;
+      this.target = target;
+      this.isPair = isPair || false;
+    }
   }
 
-  function Link(source, target, isPair) {
-    this.source = source;
-    this.target = target;
-    this.isPair = isPair || false;
-  }
 }

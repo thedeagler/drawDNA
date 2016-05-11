@@ -5,20 +5,21 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>drawDNA</title>
   <link rel="stylesheet" href=".https://cdnjs.cloudflare.com/ajax/libs/normalize/4.1.1/normalize.min.css">
-  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="./draw.css">
   <link href='https://fonts.googleapis.com/css?family=Slabo+27px' rel='stylesheet' type='text/css'>
   <!-- <script defer src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script> -->
-  <script defer src="../d3.js" charset="utf-8"></script>
-  <script defer src="../utils.js"></script>
-  <script defer src="../dnaError.js"></script>
-  <script defer src="../drawDNA.js"></script>
-  <script defer src="../infobox.js"></script>
-  <script defer src="../main.js"></script>
-  <script defer src="../settings.js"></script>
+  <script defer src="./scripts/d3.js" charset="utf-8"></script>
+  <script defer src="./scripts/Utils.js"></script>
+  <script defer src="./scripts/Errors.js"></script>
+  <script defer src="./scripts/DNA.js"></script>
+  <script defer src="./scripts/main.js"></script>
+  <script defer src="./scripts/infobox.js"></script>
+  <script defer src="./scripts/settings.js"></script>
 </head>
 <body>
+  <div id="loading" class="hidden">LOADING BIATCH</div>
   <div id="legend_container" class="paper">
-    <h3 id="legend_title" class="title">Legend<img id="settings_open" class="settings_icon clickable" src="../resources/settings.svg"></img></h3>
+    <h3 id="legend_title" class="title">Legend<img id="settings_open" class="settings_icon clickable" src="./resources/settings.svg"></img></h3>
     <div class="options_container">
       <div class="mi">
         <span class="mi_label">Adenine</span>
@@ -39,7 +40,7 @@
     </div>
   </div>
   <div id="settings_container" class="paper hidden">
-    <h3 id="settings_title"class="title">Settings<img id="settings_close" class="settings_icon clickable" src="../resources/close.svg"></img></h3>
+    <h3 id="settings_title"class="title">Settings<img id="settings_close" class="settings_icon clickable" src="./resources/close.svg"></img></h3>
     <div class="options_container">
       <div class="mi clickable">
         <label class="mi_label" for="a_color">Adenine</label>
@@ -59,7 +60,7 @@
       </div>
       <div class="mi">
         <label class="mi_label" for="length">Link Distance</label>
-        <input id="length_slider" class="mi_input" type="range" min="0" max="250" value="10" step="1">
+        <input id="length_slider" class="mi_input" type="range" min="0" max="250" value="50" step="1">
       </div>
       <div class="mi">
         <label class="mi_label" for="radius">Radius</label>
@@ -69,9 +70,9 @@
   </div>
   <div id="tabs" class="paper" >
     <div id="tab_bar">
-        <span class="tab_title title clickable">Sequence</span><span class="tab_title title clickable">DBN</span>
+        <span class="tab_title title clickable selected_tab">Sequence</span><span class="tab_title title clickable">DBN</span>
     </div>
-    <div id="tab_content" class="hidden"></div>
+    <div id="tab_content"></div>
     <form id="edit_form" class="hidden">
       <textarea class="edit_box" id="edit_seq" name="edit" cols="30" rows="10"></textarea>
       <textarea class="edit_box" id="edit_dbn" name="edit" cols="30" rows="10"></textarea>
@@ -81,11 +82,12 @@
       <span>Errors:</span>
       <div id="error_message"></div>
     </div>
-    <div id="edit" class="button hidden">Edit</div>
+    <div id="edit" class="button">Edit</div>
     <div id="cancel" class="button hidden">Cancel</div>
     <div id="save" class="button hidden">Save</div>
   </div>
-  <a href="../new"><img id="add_icon" src="../resources/add_circle.svg"></img></a>
+  <a href="/new"><img id="add_icon" src="./resources/add_circle.svg"></img></a>
+  <div id="notify" class="paper"><img src="./resources/error_outline.svg"></img><span id="notify_text"></span></div>
   <svg id="canvas"></svg>
 </body>
 </html>

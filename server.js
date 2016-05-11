@@ -31,8 +31,9 @@ app.get('/new', function(req, res) {
   });
 })
 
+app.use('/sequence', express.static(__dirname + '/public'));
 app.get('/sequence/:id', function(req, res) {
-  res.sendFile(__dirname + '/public/index.html');
+  res.sendFile(__dirname + '/public/draw.html');
 });
 
 app.get('/data/:id', function(req, res) {

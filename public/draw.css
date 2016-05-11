@@ -41,6 +41,28 @@ body {
   stroke-width: 5px;
 }
 
+#loading {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  /*height: 100%;
+  width: 100%;
+  background-color: rgba(0,0,0,.5);
+  z-index: 100;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flex;
+  display: -o-flex;
+  display: flex;
+  justify-content: space-around;
+  -ms-align-items: center;
+  align-items: center;*/
+}
+
 /*
 ========================================
     Info / Edit menu
@@ -227,6 +249,60 @@ body {
 
 /*
 ========================================
+    Notifications
+========================================
+*/
+#notify {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  -webkit-transform: translate(-50%, 100%);
+  -ms-transform: translate(-50%, 100%);
+  -o-transform: translate(-50%, 100%);
+  transform: translate(-50%, 100%);
+  background-color: white;
+  text-align: center;
+  color: firebrick;
+  border: 1px solid firebrick;
+  font-weight: 300;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flex;
+  display: -o-flex;
+  display: flex;
+  justify-content: space-around;
+  -ms-align-items: center;
+  align-items: center;
+  padding: 10px;
+}
+
+#notify_text {
+  padding-left: 10px;
+}
+
+/*#notify:hover {*/
+#notify.pop_in {
+  -webkit-transition: transform 0.25s ease-out;
+  -o-transition: transform 0.25s ease-out;
+  transition: transform 0.25s ease-out;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+#notify.pop_out {
+  -webkit-transition: transform 0.25s ease-out;
+  -o-transition: transform 0.25s ease-out;
+  transition: transform 0.25s ease-out;
+  -webkit-transform: translate(-50%, 100%);
+  -ms-transform: translate(-50%, 100%);
+  -o-transform: translate(-50%, 100%);
+  transform: translate(-50%, 100%);
+}
+
+/*
+========================================
     DNA SVGs
 ========================================
  */
@@ -249,6 +325,7 @@ text {
 .link {
   stroke: #777;
   stroke-width: 2px;
+  pointer-events: none;
 }
 
 .pair {
@@ -315,5 +392,5 @@ text {
 }
 
 .hidden {
-  display: none;
+  display: none !important;
 }
