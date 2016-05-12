@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>DrawDNA | Home</title>
+  <link rel="stylesheet" href=".https://cdnjs.cloudflare.com/ajax/libs/normalize/4.1.1/normalize.min.css">
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,100,300' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="./styles/home.css">
+
+  <script defer src="./scripts/home.js"></script>
+</head>
+<body>
+  <div id="appbar">
+    <!-- <img id="dna_icon" src="./resources/dna.svg"> -->
+    <div id="appbar_buttons">
+      <span id="guide" class="clickable to_tutorials">User Guide</span>
+      <a href="/new" id="create" class="button"><span>Create</span></a>
+    </div>
+  </div>
+  <div id="hero_container">
+    <h1 id="title">DrawDNA</h1>
+    <h3 id="subtitle">Easily create & visualize secondary DNA structure</h3>
+  </div>
+  <div id="call_to_action_container">
+    <div id="call_to_action_content">
+      <span>Ready?</span>
+      <a href="/new" id="start" class="button"><span>Get Started</span></a>
+      <span>or</span>
+      <div class="read_guide button to_tutorials">
+        <h3>Check out the user guide</h3>
+      </div>
+      <div class="read_guide button to_tutorials">
+        <img id="down_icon" src="./resources/arrow_drop_down_circle.svg">
+      </div>
+    </div>
+  </div>
+  <div id="tutorials"></div>
+  <div id="tutorials_container">
+    <div class="tutorial_wrapper">
+      <div class="tutorial_text">
+        <h2 class="tutorial_title">Create</h2>
+        <div class="tutorial_content">
+          <p>Create a new DNA visualization from the homepage or the create button in the bottom right corner. Your visualization will be pre-populated by a default working sequence. Drag, stretch, and play with your DNA!</p>
+        </div>
+      </div>
+      <img class="tutorial_image" src="./resources/create.gif"></img>
+    </div>
+    <div class="tutorial_wrapper">
+      <div class="tutorial_text">
+        <h2 class="tutorial_title">Edit</h2>
+        <div class="tutorial_content">
+          <p>Edit your sequences as you like. You can click the edit button to manually update the Sequence and Dot bracket notation. Only valid combinations will be saved so you don't have to worry about saving invalid DNA.</p>
+          <p>You can also edit the color and size of nucleotides, as well as link length through the settings menu!</p>
+          <p>You can easily link base pairs together by first selecting a single nucleotide, then clicking it's corresponding pair.</p>
+        </div>
+      </div>
+      <img class="tutorial_image" src="./resources/edit.gif"></img>
+    </div>
+    <div class="tutorial_wrapper">
+      <div class="tutorial_text">
+        <h2 class="tutorial_title">Share</h2>
+        <div class="tutorial_content">
+          <p>Finally, what good is a DNA visualizer if you can't share it? Each new DNA is made with its own ID, so simply copy the URL and send it!</p>
+        </div>
+      </div>
+      <img class="tutorial_image" src="./resources/share.gif"></img>
+    </div>
+  </div>
+</body>
+</html>

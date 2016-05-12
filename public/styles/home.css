@@ -1,0 +1,223 @@
+/*
+  cyan - #41BAFF
+  orange - #FF9F5F
+  grey - #5F5F5F
+*/
+
+body {
+  font-family: 'Lato', sans-serif;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+body::after {
+  content: "";
+  background-image: url('../resources/dnaBG.png');
+  background-color: white;
+  background-attachment : fixed;
+  background-size       : cover;
+  opacity: 0.3;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  z-index: -1;
+}
+
+h3 {
+  margin: 5px;
+}
+
+/*
+========================================
+    Appbar
+========================================
+*/
+
+#appbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: #41BAFF;
+  z-index: 100;
+}
+
+#dna_icon {
+  height: 80px;
+  width: 80px;
+  margin: 10px;
+}
+
+#appbar_buttons {
+  text-align: right;
+}
+
+.button {
+  display: inline-block;
+  text-decoration: none;
+  text-align: center;
+  cursor: pointer;
+  color: white;
+  font-weight: 300;
+  margin: 10px;
+  padding: 10px 25px;
+  border: 3px solid white;
+  border-radius: 3px;
+}
+
+.button:hover {
+  text-decoration: underline;
+}
+
+#guide {
+  color: white;
+  text-decoration: none;
+  font-weight: 300;
+}
+
+#guide:hover {
+  text-decoration: underline;
+}
+
+/*
+========================================
+    Hero
+========================================
+*/
+#hero_container {
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flex;
+  display: -o-flex;
+  display: flex;
+  -webkit-flex-direction: column;
+  -moz-flex-direction: column;
+  -ms-flex-direction: column;
+  -o-flex-direction: column;
+  flex-direction: column;
+  -ms-align-items: center;
+  align-items: center;
+  justify-content: center;
+  height: 70vh;
+}
+
+#title {
+  font-size: 4em;
+  margin-bottom: 0;
+}
+
+#call_to_action_container {
+  position: relative;
+  height: 25vh;
+  width: 100%;
+}
+
+#call_to_action_content {
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flex;
+  display: -o-flex;
+  display: flex;
+  -webkit-flex-direction: column;
+  -moz-flex-direction: column;
+  -ms-flex-direction: column;
+  -o-flex-direction: column;
+  flex-direction: column;
+  -ms-align-items: center;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  bottom: -25px;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+  -o-transform: translateX(-50%);
+  transform: translateX(-50%);
+}
+
+#start {
+  height: 5vw;
+  width: 25vw;
+  background-color: #41BAFF;
+  border-radius: 7px;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flex;
+  display: -o-flex;
+  display: flex;
+  justify-content: space-around;
+  -ms-align-items: center;
+  align-items: center;
+  font-size: 2.5em;
+  margin-bottom: 10vh;
+}
+
+.read_guide {
+  /*font-size: 1.5em;*/
+  /*margin: 10px;*/
+  color: #FF9F5F;
+  font-weight: 300;
+  border: 0px;
+  margin: 0;
+  padding: 0;
+}
+
+#down_icon {
+  height: 45px;
+  width: 45px;
+  border-radius: 45px;
+}
+
+/*
+========================================
+    Tutorials
+========================================
+*/
+#tutorials_container {
+  background-color: #FF9F5F;
+  padding: 20px;
+}
+
+.tutorial_wrapper {
+  padding: 20px;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flex;
+  display: -o-flex;
+  display: flex;
+  justify-content: space-around;
+  color: white;
+}
+
+.tutorial_text {
+  width: 40vw;
+  max-width: 600px;
+}
+
+.tutorial_title {
+  font-weight: 300;
+}
+
+.tutorial_content {
+  font-weight: 100;
+}
+
+.tutorial_image {
+  /*height: 90px;
+  width: 45vw;
+  background-color: white;*/
+}
+
+/*
+========================================
+    Utils
+========================================
+*/
+.clickable {
+  cursor: pointer;
+}

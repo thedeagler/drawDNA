@@ -110,3 +110,17 @@ x Create edit menu
   dbn: '..(((((..(((...)))..)))))...',
   sequence: 'TTGGAGTACACAACCTGTACACTCCTTC',
 }
+
+
+Homepage reqs
+DrawDNA
+Easily create and visualize secondary DNA structure.
+
+- Get Started button
+- Video/gif tutorial
+  - Create new
+  - Edit
+  - Click/drag
+    - Make base pair
+  - Settings
+  - Sharing

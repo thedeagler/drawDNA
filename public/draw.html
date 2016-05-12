@@ -3,12 +3,12 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>drawDNA</title>
+  <title>DrawDNA | Draw!</title>
   <link rel="stylesheet" href=".https://cdnjs.cloudflare.com/ajax/libs/normalize/4.1.1/normalize.min.css">
-  <link rel="stylesheet" href="./draw.css">
-  <link href='https://fonts.googleapis.com/css?family=Slabo+27px' rel='stylesheet' type='text/css'>
-  <!-- <script defer src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script> -->
-  <script defer src="./scripts/d3.js" charset="utf-8"></script>
+  <link rel="stylesheet" href="./styles/draw.css">
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,100,300' rel='stylesheet' type='text/css'>
+  <script defer src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+  <!-- <script defer src="./scripts/d3.js" charset="utf-8"></script> -->
   <script defer src="./scripts/Utils.js"></script>
   <script defer src="./scripts/Errors.js"></script>
   <script defer src="./scripts/DNA.js"></script>
@@ -17,7 +17,15 @@
   <script defer src="./scripts/settings.js"></script>
 </head>
 <body>
-  <div id="loading" class="hidden">LOADING BIATCH</div>
+  <div id="loading" class="hidden">
+    <div>
+      <div class="spinner">
+        <div class="dot1"></div>
+        <div class="dot2"></div>
+      </div>
+      Loading...
+    </div>
+  </div>
   <div id="legend_container" class="paper">
     <h3 id="legend_title" class="title">Legend<img id="settings_open" class="settings_icon clickable" src="./resources/settings.svg"></img></h3>
     <div class="options_container">
