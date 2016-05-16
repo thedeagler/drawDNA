@@ -34,17 +34,25 @@ body {
 }
 
 #add_icon {
-  position: absolute;
+  position: fixed;
   bottom: 20px;
   right: 20px;
   height: 80px;
   width: 80px;
   border-radius: 40px;
+  background-color: white;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.26);
 }
 
 #add_icon:hover {
-  stroke: black;
-  stroke-width: 5px;
+  -webkit-transition: transform .1s;
+  -o-transition: transform .1s;
+  transition: transform .1s;
+  -webkit-transform: translateY(-1px);
+  -ms-transform: translateY(-1px);
+  -o-transform: translateY(-1px);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.26);
 }
 
 #loading {
