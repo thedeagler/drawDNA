@@ -4,10 +4,12 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>DrawDNA | Draw!</title>
-  <link rel="stylesheet" href=".https://cdnjs.cloudflare.com/ajax/libs/normalize/4.1.1/normalize.min.css">
+  <!-- <link rel="stylesheet" href=".https://cdnjs.cloudflare.com/ajax/libs/normalize/4.1.1/normalize.min.css"> -->
+  <!-- <link href='https://fonts.googleapis.com/css?family=Lato:400,100,300' rel='stylesheet' type='text/css'> -->
+  <link rel="stylesheet" href="./styles/animate.css">
   <link rel="stylesheet" href="./styles/draw.css">
-  <link href='https://fonts.googleapis.com/css?family=Lato:400,100,300' rel='stylesheet' type='text/css'>
-  <script defer src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+
+  <!-- <script defer src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script> -->
   <script defer src="./scripts/Utils.js"></script>
   <script defer src="./scripts/Errors.js"></script>
   <script defer src="./scripts/DNA.js"></script>
@@ -25,7 +27,7 @@
       Loading...
     </div>
   </div>
-  <div id="legend_container" class="paper">
+  <div id="legend_container" class="paper animated">
     <h3 id="legend_title" class="title">Legend<img id="settings_open" class="settings_icon clickable" src="./resources/settings.svg"></img></h3>
     <div class="options_container">
       <div class="mi">
@@ -46,7 +48,7 @@
       </div>
     </div>
   </div>
-  <div id="settings_container" class="paper hidden">
+  <div id="settings_container" class="paper hidden animated slideOutLeft">
     <h3 id="settings_title"class="title">Settings<img id="settings_close" class="settings_icon clickable" src="./resources/close.svg"></img></h3>
     <div class="options_container">
       <div class="mi clickable">
@@ -94,7 +96,7 @@
     <div id="save" class="button hidden">Save</div>
   </div>
   <a href="/new"><img id="add_icon" src="./resources/add_circle.svg"></img></a>
-  <div id="notify" class="paper"><img src="./resources/error_outline.svg"></img><span id="notify_text"></span></div>
+  <div id="notify" class="paper animated"><img src="./resources/error_outline.svg"></img><span id="notify_text"></span></div>
   <svg id="canvas"></svg>
 </body>
 </html>

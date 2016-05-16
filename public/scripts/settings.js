@@ -48,8 +48,16 @@
     open.removeEventListener('click', showSettings);
     close.addEventListener('click', hideSettings);
 
-    utils.domShow(settings);
-    utils.domHide(legend);
+    legend.addEventListener('animationend', showSettings);
+    legend.classList.remove('slideInLeft');
+    legend.classList.add('slideOutLeft');
+
+    function showSettings() {
+      utils.domShow(settings);
+      legend.removeEventListener('animationend', showSettings);
+      settings.classList.remove('slideOutLeft');
+      settings.classList.add('slideInLeft');
+    }
   }
 
   function hideSettings(e) {
@@ -66,8 +74,15 @@
     open.addEventListener('click', showSettings);
     close.removeEventListener('click', hideSettings);
 
-    utils.domHide(settings);
-    utils.domShow(legend);
+    settings.addEventListener('animationend', hideSettings);
+    settings.classList.remove('slideInLeft');
+    settings.classList.add('slideOutLeft');
+
+    function hideSettings() {
+      settings.removeEventListener('animationend', hideSettings);
+      legend.classList.remove('slideOutLeft');
+      legend.classList.add('slideInLeft');
+    }
   }
 
   /*

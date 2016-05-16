@@ -10,8 +10,8 @@
   // Set up initial view on page load
   var id = window.location.pathname.split('/')[2];
   var origin = window.location.origin;
-  var tabContent = document.getElementById('tab_content');
 
+  var tabContent = document.getElementById('tab_content');
   if(id) {
     utils.makeRequest('GET', origin + '/data/' + id, function(err, data) {
       if(data) {

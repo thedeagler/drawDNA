@@ -4,17 +4,18 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>DrawDNA | Home</title>
-  <link rel="stylesheet" href=".https://cdnjs.cloudflare.com/ajax/libs/normalize/4.1.1/normalize.min.css">
-  <link href='https://fonts.googleapis.com/css?family=Lato:400,100,300' rel='stylesheet' type='text/css'>
-  <link rel="stylesheet" href="./styles/home.css">
+  <!-- <link rel="stylesheet" href=".https://cdnjs.cloudflare.com/ajax/libs/normalize/4.1.1/normalize.min.css"> -->
+  <!-- <link href='https://fonts.googleapis.com/css?family=Lato:400,100,300' rel='stylesheet' type='text/css'> -->
+  <link rel="stylesheet" href="styles/home.css">
 
-  <script defer src="./scripts/home.js"></script>
+  <script defer src="scripts/smooth-scroll.min.js"></script>
+  <script defer src="scripts/home.js"></script>
 </head>
 <body>
   <div id="appbar">
-    <div id="title"><img id="dna_icon" src="./resources/dna.svg">DrawDNA</div>
+    <div id="title"><img id="dna_icon" src="resources/dna.svg">DrawDNA</div>
     <div id="appbar_buttons">
-      <span id="guide" class="clickable to_tutorials">User Guide</span>
+      <a id="guide" class="clickable to_tutorials" data-scroll href="#tutorials"><span>User Guide</span></a>
       <a href="/new" id="create" class="button"><span>Create</span></a>
     </div>
   </div>
@@ -27,12 +28,12 @@
       <span>Ready?</span>
       <a href="/new" id="start" class="button"><span>Get Started</span></a>
       <span>or</span>
-      <div class="read_guide button to_tutorials">
+      <a class="read_guide button to_tutorials" data-scroll href="#tutorials">
         <h3>Check out the user guide</h3>
-      </div>
-      <div class="read_guide button to_tutorials">
-        <img id="down_icon" src="./resources/arrow_drop_down_circle.svg">
-      </div>
+      </a>
+      <a class="read_guide button to_tutorials" data-scroll href="#tutorials">
+        <img id="down_icon" src="resources/arrow_drop_down_circle.svg">
+      </a>
     </div>
   </div>
   <div id="tutorials"></div>
@@ -44,7 +45,7 @@
           <p>Create a new DNA visualization from the homepage or the create button in the bottom right corner. Your visualization will be pre-populated by a default working sequence. Drag, stretch, and play with your DNA!</p>
         </div>
       </div>
-      <img class="tutorial_image" src="./resources/create.gif"></img>
+      <img class="tutorial_image compress" src="resources/create-small.gif"></img>
     </div>
     <div class="tutorial_wrapper">
       <div class="tutorial_text">
@@ -55,7 +56,7 @@
           <p>You can easily link base pairs together by first selecting a single nucleotide, then clicking it's corresponding pair.</p>
         </div>
       </div>
-      <img class="tutorial_image" src="./resources/edit.gif"></img>
+      <img class="tutorial_image compress" src="resources/edit-small.gif"></img>
     </div>
     <div class="tutorial_wrapper">
       <div class="tutorial_text">
@@ -64,8 +65,9 @@
           <p>Finally, what good is a DNA visualizer if you can't share it? Each new DNA is made with its own ID, so simply copy the URL and send it!</p>
         </div>
       </div>
-      <img class="tutorial_image" src="./resources/share.gif"></img>
+      <img class="tutorial_image compress" src="resources/share-small.gif"></img>
     </div>
   </div>
+  <div id="background">
 </body>
 </html>

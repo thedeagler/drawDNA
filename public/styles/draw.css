@@ -83,6 +83,9 @@ body {
 ========================================
  */
 #tabs {
+  -webkit-transition: width 0.15s ease-in-out;
+  -o-transition: width 0.15s ease-in-out;
+  transition: width 0.15s ease-in-out;
   position: absolute;
   right: 0;
   top: 0;
@@ -91,6 +94,11 @@ body {
   padding: 5px 10px 10px 10px;
   color: white;
   font-weight: 300;
+}
+
+.selected_tab {
+  color: #41BAFF;
+  background-color: white;
 }
 
 .tab_title {
@@ -136,6 +144,9 @@ body {
 }
 
 #tabs.editing {
+  -webkit-transition: width 0.15s ease-in-out;
+  -o-transition: width 0.15s ease-in-out;
+  transition: width 0.15s ease-in-out;
   width: 50%;
   background-color: #FF9F5F;
 }
@@ -169,6 +180,9 @@ body {
 ========================================
  */
 #settings_container{
+  -webkit-animation-duration: 0.5s;
+  -o-animation-duration: 0.5s;
+  animation-duration: 0.5s;
   position: absolute;
   top: 0;
   left: 0;
@@ -232,6 +246,9 @@ body {
 ========================================
  */
 #legend_container {
+  -webkit-animation-duration: 0.5s;
+  -o-animation-duration: 0.5s;
+  animation-duration: 0.5s;
   position: absolute;
   top: 0;
   left: 0;
@@ -445,11 +462,6 @@ text {
 
 .clickable {
   cursor: pointer;
-}
-
-.selected_tab {
-  color: #41BAFF;
-  background-color: white;
 }
 
 .selected_char {
