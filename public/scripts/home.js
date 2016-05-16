@@ -1,9 +1,16 @@
+/*
+========================================
+    Main JS for home.html
+    Upgrades images after page load
+========================================
+*/
+
 window.onload = function() {
   // Load gifs after page loads
-  loadGifs();
+  upgradeImages();
 }
 
-function loadGifs() {
+function upgradeImages() {
   var tutorialImages = [].slice.call(document.getElementsByClassName('tutorial_image'));
 
   tutorialImages.forEach(function(element) {

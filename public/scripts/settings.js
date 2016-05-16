@@ -1,3 +1,9 @@
+/*
+========================================
+    Settings/legend controller
+========================================
+*/
+
 (function() {
   // Get interactive dom elements
   var settings = document.getElementById('settings_container');

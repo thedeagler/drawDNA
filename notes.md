@@ -35,7 +35,7 @@ x Each base of the sequence should be colored.
 x The DBN should be visible.
 x Label bases
 x Annotate 5' and 3' end
-- Visually differentiate edges for phosphate backbone and base-pair complementarity
+x Visually differentiate edges for phosphate backbone and base-pair complementarity
 x Save and share link
 
 /*
@@ -62,9 +62,6 @@ x create connections by connecting two unpaired and complementary bases (e.g. C 
 - Highlight connections as well
   - Differentiate types of connections with colors
 - Sharelink icon
-- Store base pair relationship somewhere globalish
-- Need more detailed error check on link making
-
 - Canvas mouse events
   - Scroll to zoom
   - Click to drag
@@ -73,18 +70,11 @@ x create connections by connecting two unpaired and complementary bases (e.g. C 
 - Save display data to server in addition to DNA data
 - Fix Bad ux not saving invalid edits
   - Did it for input validity reasons
-- Responsive
+- Responsiveness
 - Respond to window resize
-- Add button highlight on hover
-  - Change to PNG instead of svg?
-- Make DNA object
-  - Create "DNA builder" where you can add one node at a time and make connections
+- Create "DNA builder" where you can add one node at a time and make connections
 - When creating links, show selectable bases
-- Refactor to React
 - Edit links and nodes instead of redraw
-
-x Create legend
-x Create edit menu
 
 /*
 ========================================
@@ -110,17 +100,3 @@ x Create edit menu
   dbn: '..(((((..(((...)))..)))))...',
   sequence: 'TTGGAGTACACAACCTGTACACTCCTTC',
 }
-
-
-Homepage reqs
-DrawDNA
-Easily create and visualize secondary DNA structure.
-
-- Get Started button
-- Video/gif tutorial
-  - Create new
-  - Edit
-  - Click/drag
-    - Make base pair
-  - Settings
-  - Sharing

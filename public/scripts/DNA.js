@@ -1,3 +1,10 @@
+/*
+========================================
+    DNA constructor
+    D3 handled in DNA.prototype.draw
+========================================
+*/
+
 function DNA(dbn, sequence) {
   this.sequence = sequence || '';
   this.dbn = dbn || '';

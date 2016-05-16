@@ -1,3 +1,13 @@
+/*
+========================================
+    Utility functions
+    -makeRequest: Ajax requests
+    -verifyDNA: verifies DNA & throws DNAErrors
+    -createTabHtml: Sanitizes inputs for setting with innerHTML
+    -domHide and domShow: show/hide dom elements
+========================================
+*/
+
 function Utils() {
   var utils = {}
 

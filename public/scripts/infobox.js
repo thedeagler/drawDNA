@@ -1,3 +1,9 @@
+/*
+========================================
+    Info/edit box controller
+========================================
+*/
+
 (function() {
   // Get interactive dom elements
   var tabContainer = document.getElementById('tabs');

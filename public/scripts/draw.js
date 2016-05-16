@@ -1,3 +1,11 @@
+/*
+========================================
+    Main JS for draw.html
+    -Init state and utils
+    -Hydrates data on load
+========================================
+*/
+
 (function() {
   // Set up initial state on page load
   window.appState = {

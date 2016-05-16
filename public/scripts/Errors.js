@@ -1,3 +1,9 @@
+/*
+========================================
+    Custom error for DNA validation
+========================================
+*/
+
 function DNAError(errorsObj) {
   this.name = 'DNAError';
   this.errors = errorsObj || {default: 'There is something wrong with your DNA input.'};
