@@ -223,14 +223,12 @@ DNA.prototype.draw = function() {
             var notifyText = notifyArea.children[1];
             notifyText.innerText = "Unable to create base-pair link";
 
-            notifyArea.classList.add('pop_in');
-            notifyArea.classList.remove('pop_out');
-            notifyArea.addEventListener('transitionend', function() {
-              setTimeout(function() {
-                notifyArea.classList.add('pop_out');
-                notifyArea.classList.remove('pop_in');
-              }, 2000);
-            })
+            notifyArea.classList.remove('slideOutDown');
+            notifyArea.classList.add('bounceInUp');
+            setTimeout(function() {
+              notifyArea.classList.remove('bounceInUp');
+              notifyArea.classList.add('slideOutDown');
+            }, 3000);
           } finally {
             // Reset selected
             selected.classList.remove('selected_node');
